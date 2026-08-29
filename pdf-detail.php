@@ -2,21 +2,28 @@
 // pdf-detail.php - Free Downloadable PDF Resource
 require_once __DIR__ . '/functions.php';
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
-$pdf = get_pdf_by_id($id);
+$slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+$pdf = $slug ? get_pdf_by_slug($slug) : ($id ? get_pdf_by_id($id) : null);
 
 if (!$pdf) {
     $pdf = $pdfs[0] ?? [
         'id' => 1,
+        'slug' => 'telugu-goal-setting-workbook-2025',
         'title' => 'శ్రీకృష్ణుని 6 విజయ రహస్యాలు - స్టడీ గైడ్ & యాక్షన్ ప్లానర్',
-        'category' => 'గైడ్ & వర్క్‌బుక్',
-        'pages' => '12 Pages',
+        'category' => 'productivity',
+        'category_name' => 'గైడ్ & వర్క్‌బుక్',
+        'pages_count' => '12 Pages',
         'file_size' => '2.4 MB',
         'description' => 'భగవద్గీతలోని 6 ప్రధాన సూత్రాలను మీ దైనందిన జీవితంలో ఆచరించడానికి అవసరమైన ప్రాక్టికల్ డైలీ చెక్‌లిస్ట్ మరియు జర్నలింగ్ వర్క్‌షీట్.',
-        'cover' => 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80',
+        'thumbnail' => 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80',
         'download_url' => '#'
     ];
 }
+
+$pdf_cover = $pdf['thumbnail'] ?? ($pdf['cover'] ?? '');
+$pdf_pages = $pdf['pages_count'] ?? ($pdf['pages'] ?? '');
 
 $custom_page_title = $pdf['title'] . ' | KK LifeWise Free PDFs';
 $custom_page_desc = $pdf['description'];
@@ -41,12 +48,12 @@ include __DIR__ . '/header.php';
     <div class="row g-5 align-items-center justify-content-center">
       <div class="col-md-4 text-center">
         <div class="p-3 bg-stone-50 rounded-4 border shadow-lg mx-auto" style="max-width: 300px;">
-          <img src="<?php echo htmlspecialchars($pdf['cover']); ?>" class="img-fluid rounded-3 mb-3" alt="<?php echo htmlspecialchars($pdf['title']); ?>">
+          <img src="<?php echo htmlspecialchars($pdf_cover); ?>" class="img-fluid rounded-3 mb-3" alt="<?php echo htmlspecialchars($pdf['title']); ?>">
           <div class="badge bg-danger px-3 py-1 rounded-pill small mb-2">
             <i class="bi bi-file-earmark-pdf-fill"></i> PDF డాక్యుమెంట్
           </div>
           <div class="text-stone-500 small">
-            <span><?php echo $pdf['pages']; ?></span> • <span><?php echo $pdf['file_size']; ?></span>
+            <span><?php echo $pdf_pages; ?></span> • <span><?php echo $pdf['file_size']; ?></span>
           </div>
         </div>
       </div>
@@ -70,9 +77,9 @@ include __DIR__ . '/header.php';
         </div>
 
         <div class="d-flex flex-wrap gap-3">
-          <button type="button" class="btn btn-gold btn-lg" onclick="showToast('PDF డౌన్‌లోడ్ ప్రారంభమైంది!');">
+          <a href="<?php echo htmlspecialchars($pdf['download_url'] ?? '#'); ?>" download class="btn btn-gold btn-lg" onclick="showToast('PDF డౌన్‌లోడ్ ప్రారంభమైంది!');">
             <i class="bi bi-download"></i> ఉచితంగా డౌన్‌లోడ్ చేసుకోండి (PDF)
-          </button>
+          </a>
           <a href="/pdfs.php" class="btn btn-outline-dark btn-lg">
             అన్ని PDFs
           </a>

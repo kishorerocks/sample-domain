@@ -52,6 +52,11 @@ function get_video_by_id($id) {
     return find_item_by_id($videos, $id);
 }
 
+function get_video_by_slug($slug) {
+    global $videos;
+    return find_item_by_slug($videos, $slug);
+}
+
 function get_story_by_id($id) {
     global $stories;
     return find_item_by_id($stories, $id);
@@ -65,6 +70,11 @@ function get_story_by_slug($slug) {
 function get_pdf_by_id($id) {
     global $pdfs;
     return find_item_by_id($pdfs, $id);
+}
+
+function get_pdf_by_slug($slug) {
+    global $pdfs;
+    return find_item_by_slug($pdfs, $slug);
 }
 
 function get_daily_quote() {

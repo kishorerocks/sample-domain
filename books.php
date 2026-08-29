@@ -34,11 +34,11 @@ include __DIR__ . '/header.php';
             <div class="row g-3 align-items-center mb-3">
               <div class="col-4">
                 <div class="book-card-visual">
-                  <img src="<?php echo htmlspecialchars($book['cover_image']); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
+                  <img src="<?php echo htmlspecialchars($book['cover'] ?? ($book['cover_image'] ?? '')); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
                 </div>
               </div>
               <div class="col-8">
-                <span class="badge bg-warning bg-opacity-20 text-warning-emphasis rounded-pill small mb-1"><?php echo htmlspecialchars($book['category']); ?></span>
+                <span class="badge bg-warning bg-opacity-20 text-warning-emphasis rounded-pill small mb-1"><?php echo htmlspecialchars($book['category_name'] ?? $book['category']); ?></span>
                 <h5 class="fw-bold text-stone-900 mb-1 fs-6"><?php echo htmlspecialchars($book['title']); ?></h5>
                 <p class="text-stone-500 small mb-2">రచయిత: <?php echo htmlspecialchars($book['author']); ?></p>
                 <div class="text-warning small">
@@ -53,7 +53,7 @@ include __DIR__ . '/header.php';
             </div>
 
             <p class="text-stone-600 small flex-grow-1 mb-3" style="line-height: 1.5;">
-              <?php echo htmlspecialchars($book['description']); ?>
+              <?php echo htmlspecialchars($book['summary'] ?? ($book['description'] ?? '')); ?>
             </p>
 
             <div class="d-flex align-items-center justify-content-between pt-3 border-top border-stone-100">

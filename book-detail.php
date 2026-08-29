@@ -27,8 +27,12 @@ if (!$book) {
     $book = $books[0];
 }
 
+$cover_img = $book['cover'] ?? ($book['cover_image'] ?? '');
+$book_desc = $book['summary'] ?? ($book['description'] ?? '');
+$key_points = $book['key_points'] ?? ($book['key_lessons'] ?? []);
+
 $custom_page_title = $book['title'] . ' - తెలుగు సారాంశం | KK LifeWise';
-$custom_page_desc = $book['description'];
+$custom_page_desc = $book_desc;
 
 include __DIR__ . '/header.php';
 ?>
@@ -52,12 +56,12 @@ include __DIR__ . '/header.php';
     <div class="row g-5 align-items-center mb-5 pb-5 border-bottom border-stone-200">
       <div class="col-md-4 text-center">
         <div class="book-card-visual shadow-lg mx-auto" style="max-width: 280px;">
-          <img src="<?php echo htmlspecialchars($book['cover_image']); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
+          <img src="<?php echo htmlspecialchars($cover_img); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
         </div>
       </div>
       <div class="col-md-8">
         <span class="badge bg-warning text-dark px-3 py-1.5 rounded-pill fw-bold mb-2">
-          <?php echo htmlspecialchars($book['category']); ?>
+          <?php echo htmlspecialchars($book['category_name'] ?? $book['category']); ?>
         </span>
         <h1 class="font-serif-telugu fw-bold text-stone-900 mb-2" style="font-size: 2.5rem;">
           <?php echo htmlspecialchars($book['title']); ?>
@@ -77,7 +81,7 @@ include __DIR__ . '/header.php';
         </div>
 
         <p class="fs-5 text-stone-700 font-serif-telugu mb-4" style="line-height: 1.6;">
-          <?php echo htmlspecialchars($book['description']); ?>
+          <?php echo htmlspecialchars($book_desc); ?>
         </p>
 
         <div class="d-flex flex-wrap gap-3">
@@ -103,19 +107,23 @@ include __DIR__ . '/header.php';
           </p>
         </div>
 
-        <!-- 4 Key Lessons -->
-        <?php if (!empty($book['key_lessons'])): ?>
+        <!-- Key Lessons / Points -->
+        <?php if (!empty($key_points)): ?>
           <div class="mb-5">
-            <h3 class="fw-bold text-stone-900 mb-4 fs-4"><i class="bi bi-check2-all text-warning me-2"></i>ముఖ్యమైన 4 సూత్రాలు & పాఠాలు</h3>
+            <h3 class="fw-bold text-stone-900 mb-4 fs-4"><i class="bi bi-check2-all text-warning me-2"></i>ముఖ్యమైన సూత్రాలు & పాఠాలు</h3>
             <div class="d-flex flex-column gap-3">
-              <?php foreach ($book['key_lessons'] as $idx => $lesson): ?>
+              <?php foreach ($key_points as $idx => $lesson): ?>
                 <div class="p-4 rounded-4 bg-stone-50 border d-flex gap-3 align-items-start">
                   <span class="badge bg-warning text-dark rounded-circle fs-5 fw-bold flex-shrink-0" style="width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;">
                     <?php echo $idx + 1; ?>
                   </span>
                   <div>
-                    <h5 class="fw-bold text-stone-900 mb-1"><?php echo htmlspecialchars($lesson['title']); ?></h5>
-                    <p class="text-stone-600 mb-0 small" style="line-height: 1.6;"><?php echo htmlspecialchars($lesson['description']); ?></p>
+                    <?php if (is_array($lesson)): ?>
+                      <h5 class="fw-bold text-stone-900 mb-1"><?php echo htmlspecialchars($lesson['title']); ?></h5>
+                      <p class="text-stone-600 mb-0 small" style="line-height: 1.6;"><?php echo htmlspecialchars($lesson['description']); ?></p>
+                    <?php else: ?>
+                      <p class="text-stone-800 mb-0 fw-medium" style="line-height: 1.6;"><?php echo htmlspecialchars($lesson); ?></p>
+                    <?php endif; ?>
                   </div>
                 </div>
               <?php endforeach; ?>
@@ -123,7 +131,7 @@ include __DIR__ . '/header.php';
           </div>
         <?php endif; ?>
 
-        <!-- Full Summary Content -->
+        <!-- Full Summary Content if available -->
         <?php if (!empty($book['full_summary'])): ?>
           <div class="article-content-body font-telugu text-stone-800 fs-6 pt-4 border-top" style="line-height: 1.8;">
             <?php echo $book['full_summary']; ?>

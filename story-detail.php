@@ -1,35 +1,28 @@
 <?php
-// story-detail.php - Single Motivational Story Detail
+// story-detail.php - Single Motivational Story Detail & Story Episodes
 require_once __DIR__ . '/functions.php';
 
 $slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$current_episode = isset($_GET['episode']) ? trim($_GET['episode']) : '';
 
 $story = $slug ? get_story_by_slug($slug) : ($id ? get_story_by_id($id) : null);
 
 if (!$story) {
     $story = $stories[0] ?? [
         'id' => 1,
-        'slug' => 'bamboo-tree-patience',
+        'slug' => 'the-bamboo-tree-patience',
         'title' => 'చైనీస్ వెదురు చెట్టు కథ | సహనం మరియు సంకల్పం',
         'summary' => '4 సంవత్సరాల పాటు భూమి కింద ఏ మార్పు లేకుండా కనిపించినా, 5వ సంవత్సరంలో 80 అడుగులు ఎదిగే వెదురు కథ.',
         'author' => 'KK LifeWise Team',
-        'image' => 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800&auto=format&fit=crop&q=80',
+        'image' => 'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=800&auto=format&fit=crop&q=80',
         'moral' => 'కఠిన పరిశ్రమకు ఫలితం వెంటనే కనిపించకపోయినా సహనంతో ఉంటే అద్భుతమైన విజయం లభిస్తుంది.',
-        'content' => '
-          <h3>నిరీక్షణ యొక్క అద్భుత శక్తి</h3>
-          <p>చైనాలో ఒక ప్రత్యేకమైన వెదురు విత్తనాన్ని నాటినప్పుడు, రైతు దానికి ప్రతిరోజూ నీరు పోసి ఎరువు వేస్తాడు. కానీ మొదటి సంవత్సరం భూమిపై ఒక్క చిన్న ఆకు కూడా మొలకెత్తదు. రెండవ సంవత్సరం, మూడవ సంవత్సరం, నాల్గవ సంవత్సరం కూడా అలాగే ఉంటుంది. పైకి ఏ మార్పూ కనిపించదు.</p>
-          <p>కానీ ఐదవ సంవత్సరంలో ఒక అద్భుతం జరుగుతుంది! కేవలం 6 వారాల వ్యవధిలోనే ఆ వెదురు చెట్టు 80 అడుగుల ఎత్తుకు ఎదుగుతుంది!</p>
-          <h4>దీని వెనుక ఉన్న రహస్యం ఏమిటి?</h4>
-          <p>ఆ మొదటి 4 సంవత్సరాలలో ఆ చెట్టు భూమి కింద వందలాది మీటర్ల లోతుకు తన వేళ్లను బలంగా విస్తరించుకుంది. ఆ బలమైన పునాది లేకుండా కేవలం 6 వారాల్లో 80 అడుగులు ఎదగడం అసాధ్యం.</p>
-          <h4>మన జీవితానికి అన్వయం</h4>
-          <p>మీరు కూడా వ్యాపారంలో లేదా కెరీర్‌లో కష్టపడుతున్నప్పుడు ఫలితం వెంటనే కనిపించకపోవచ్చు. మీరు నిరుత్సాహపడకండి; మీరు భూమి కింద బలమైన పునాదిని నిర్మించుకుంటున్నారు అని నమ్మండి.</p>
-        '
+        'episodes' => []
     ];
 }
 
 $custom_page_title = $story['title'] . ' | KK LifeWise Stories';
-$custom_page_desc = $story['summary'];
+$custom_page_desc = $story['summary'] ?? ($story['moral'] ?? '');
 
 include __DIR__ . '/header.php';
 ?>
@@ -69,9 +62,36 @@ include __DIR__ . '/header.php';
           </div>
         <?php endif; ?>
 
-        <div class="article-content-body font-telugu text-stone-800 fs-6" style="line-height: 1.8;">
-          <?php echo $story['content']; ?>
-        </div>
+        <!-- Multi-Episode Content or Standard Content -->
+        <?php if (!empty($story['episodes'])): ?>
+          <div class="mb-4">
+            <div class="d-flex flex-wrap gap-2 pb-3 mb-4 border-bottom">
+              <a href="/story-detail.php?slug=<?php echo $story['slug']; ?>" class="btn btn-sm rounded-pill <?php echo empty($current_episode) ? 'btn-warning fw-bold' : 'btn-outline-secondary'; ?>">
+                అన్ని ఎపిసోడ్లు
+              </a>
+              <?php foreach ($story['episodes'] as $ep): ?>
+                <a href="/story-detail.php?slug=<?php echo $story['slug']; ?>&episode=<?php echo $ep['episode']; ?>" class="btn btn-sm rounded-pill <?php echo ($current_episode === $ep['episode']) ? 'btn-warning fw-bold' : 'btn-outline-secondary'; ?>">
+                  <?php echo htmlspecialchars($ep['title']); ?>
+                </a>
+              <?php endforeach; ?>
+            </div>
+
+            <?php foreach ($story['episodes'] as $ep): ?>
+              <?php if (empty($current_episode) || $current_episode === $ep['episode']): ?>
+                <div class="story-episode-card p-4 rounded-4 bg-stone-50 border mb-4">
+                  <h4 class="fw-bold text-stone-900 mb-3 text-warning-emphasis"><?php echo htmlspecialchars($ep['title']); ?></h4>
+                  <div class="article-content-body font-telugu text-stone-800 fs-6" style="line-height: 1.8;">
+                    <?php echo $ep['content']; ?>
+                  </div>
+                </div>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </div>
+        <?php elseif (!empty($story['content'])): ?>
+          <div class="article-content-body font-telugu text-stone-800 fs-6" style="line-height: 1.8;">
+            <?php echo $story['content']; ?>
+          </div>
+        <?php endif; ?>
 
         <div class="mt-5 pt-4 border-top d-flex justify-content-between align-items-center">
           <a href="/stories.php" class="btn btn-outline-dark rounded-pill">

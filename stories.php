@@ -42,7 +42,7 @@ include __DIR__ . '/header.php';
                   <?php echo htmlspecialchars($story['title']); ?>
                 </a>
               </h4>
-              <p class="text-stone-600 small flex-grow-1 mb-3"><?php echo htmlspecialchars($story['summary']); ?></p>
+              <p class="text-stone-600 small flex-grow-1 mb-3"><?php echo htmlspecialchars($story['summary'] ?? ($story['moral'] ?? '')); ?></p>
               <?php if (!empty($story['moral'])): ?>
                 <div class="p-2.5 rounded-3 bg-warning bg-opacity-10 text-warning-emphasis small fw-semibold mb-3 border border-warning border-opacity-20">
                   <i class="bi bi-gem me-1"></i> నీతి: <?php echo htmlspecialchars($story['moral']); ?>

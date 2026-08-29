@@ -365,11 +365,13 @@ register_post_type('video_hub', [
     </div>
   </div>
 
-  <!-- Bootstrap 5.3.3 JS Bundle -->
+  <!-- jQuery 3.7.1 & Bootstrap 5.3.3 JS Bundle -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom Core Scripts -->
   <script src="/js/main.js?v=2.0"></script>
+  <script src="/js/navigation.js?v=2.0"></script>
   <script src="/js/search.js?v=2.0"></script>
   <script src="/js/quotes.js?v=2.0"></script>
   <script src="/js/assessment.js?v=2.0"></script>

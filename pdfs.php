@@ -32,20 +32,20 @@ include __DIR__ . '/header.php';
           <div class="lw-card p-4">
             <div class="row g-4 align-items-center">
               <div class="col-sm-4 text-center">
-                <img src="<?php echo htmlspecialchars($pdf['cover']); ?>" class="img-fluid rounded-3 shadow-sm" alt="<?php echo htmlspecialchars($pdf['title']); ?>">
+                <img src="<?php echo htmlspecialchars($pdf['thumbnail'] ?? ($pdf['cover'] ?? '')); ?>" class="img-fluid rounded-3 shadow-sm" alt="<?php echo htmlspecialchars($pdf['title']); ?>">
               </div>
               <div class="col-sm-8 d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-start mb-2">
-                  <span class="badge bg-warning text-dark"><?php echo htmlspecialchars($pdf['category']); ?></span>
-                  <span class="small text-muted"><?php echo $pdf['pages']; ?> • <?php echo $pdf['file_size']; ?></span>
+                  <span class="badge bg-warning text-dark"><?php echo htmlspecialchars($pdf['category_name'] ?? $pdf['category']); ?></span>
+                  <span class="small text-muted"><?php echo $pdf['pages_count'] ?? ($pdf['pages'] ?? ''); ?> • <?php echo $pdf['file_size']; ?></span>
                 </div>
                 <h5 class="fw-bold text-stone-900 mb-2"><?php echo htmlspecialchars($pdf['title']); ?></h5>
                 <p class="text-stone-600 small mb-3 flex-grow-1"><?php echo htmlspecialchars($pdf['description']); ?></p>
                 <div class="d-flex gap-2 mt-auto">
-                  <a href="/pdf-detail.php?id=<?php echo $pdf['id']; ?>" class="btn btn-sm btn-gold">
+                  <a href="<?php echo htmlspecialchars($pdf['download_url'] ?? '#'); ?>" download class="btn btn-sm btn-gold" onclick="showToast('PDF డౌన్‌లోడ్ ప్రారంభమైంది!');">
                     <i class="bi bi-download"></i> డౌన్‌లోడ్
                   </a>
-                  <a href="/pdf-detail.php?id=<?php echo $pdf['id']; ?>" class="btn btn-sm btn-outline-dark">
+                  <a href="/pdf-detail.php?slug=<?php echo $pdf['slug'] ?? ''; ?>&id=<?php echo $pdf['id']; ?>" class="btn btn-sm btn-outline-dark">
                     వివరాలు
                   </a>
                 </div>

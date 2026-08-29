@@ -8,6 +8,50 @@ if ($uri !== '/' && file_exists($file) && !is_dir($file)) {
     return false;
 }
 
+// Clean Story Episode URLs: /stories/story-slug/episode-01/
+if (preg_match('#^/stories/([^/]+)/([^/]+)/?$#', $uri, $matches)) {
+    $_GET['slug'] = $matches[1];
+    $_GET['episode'] = $matches[2];
+    require __DIR__ . '/story-detail.php';
+    return;
+}
+
+// Clean Single Story URLs: /stories/story-slug/
+if (preg_match('#^/stories/([^/]+)/?$#', $uri, $matches)) {
+    $_GET['slug'] = $matches[1];
+    require __DIR__ . '/story-detail.php';
+    return;
+}
+
+// Clean Single Book URLs: /books/book-slug/
+if (preg_match('#^/books/([^/]+)/?$#', $uri, $matches)) {
+    $_GET['slug'] = $matches[1];
+    require __DIR__ . '/book-detail.php';
+    return;
+}
+
+// Clean Single Video URLs: /videos/video-slug/
+if (preg_match('#^/videos/([^/]+)/?$#', $uri, $matches)) {
+    $_GET['slug'] = $matches[1];
+    require __DIR__ . '/video-detail.php';
+    return;
+}
+
+// Clean Single PDF URLs: /pdfs/pdf-slug/
+if (preg_match('#^/pdfs/([^/]+)/?$#', $uri, $matches)) {
+    $_GET['slug'] = $matches[1];
+    require __DIR__ . '/pdf-detail.php';
+    return;
+}
+
+// Clean Category Article URLs: /motivation/article-slug/, /money/article-slug/, /career/article-slug/
+if (preg_match('#^/(motivation|money|career)/([^/]+)/?$#', $uri, $matches)) {
+    $_GET['category'] = $matches[1];
+    $_GET['slug'] = $matches[2];
+    require __DIR__ . '/article.php';
+    return;
+}
+
 // Clean URL routing table
 $routes = [
     '/' => 'index.php',
@@ -59,3 +103,4 @@ if (file_exists($phpFile)) {
 
 // Fallback to index.php
 require __DIR__ . '/index.php';
+

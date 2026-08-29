@@ -6,7 +6,7 @@ $custom_page_title = 'సంప్రదించండి (Contact Us) | KK Lif
 $custom_page_desc = 'KK LifeWise & KK Motivation Telugu బృందాన్ని సంప్రదించండి.';
 
 $success_msg = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $subject = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
