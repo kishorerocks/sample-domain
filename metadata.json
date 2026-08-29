@@ -1,0 +1,6 @@
+{
+  "name": "KK LifeWise",
+  "description": "ఆలోచన మార్చు • జీవితం మార్చు - Telugu Personal Growth, Motivation, Money, Career, Stories & Books Platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
