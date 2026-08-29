@@ -1,106 +1,106 @@
 <?php
-// about.php - About KK LifeWise & Mission
-$page_title = 'About Us (మా గురించి) - KK LifeWise | ఆలోచన మార్చు • జీవితం మార్చు';
-$page_description = 'Learn about KK LifeWise mission, vision, founder philosophy, and our goal to empower Telugu youth with growth mindset.';
-$active_page = 'about';
+// about.php - About Us & Vision Page
+require_once __DIR__ . '/functions.php';
 
-require_once __DIR__ . '/header.php';
+$custom_page_title = 'మా గురించి & మా విజన్ | KK LifeWise';
+$custom_page_desc = 'KK LifeWise - ఆలోచన మార్చు • జీవితం మార్చు. తెలుగు ప్రజల ఆలోచనా విధానాన్ని ఉన్నతంగా తీర్చిదిద్దే సమగ్ర వేదిక.';
+
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-12">
-    <!-- Header Banner -->
-    <div class="relative py-12 px-6 sm:px-10 rounded-3xl overflow-hidden glass-panel border border-primary/20 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/20 text-primary text-xs font-bold uppercase mb-3">
-            <span class="material-symbols-outlined text-sm">auto_awesome</span>
-            Our Story & Vision
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-primary font-sans mb-3">
-            About KK LifeWise
-        </h1>
-        <p class="text-xl font-bold text-on-surface mb-2">
-            "ఆలోచన మార్చు • జీవితం మార్చు"
+<div class="bg-hero-pattern py-5 border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    <div class="max-w-3xl">
+      <div class="badge badge-pill badge-gold mb-2">
+        <i class="bi bi-heart-fill text-danger"></i> మా ప్రయాణం & విలువలు
+      </div>
+      <h1 class="hero-heading font-serif-telugu fw-bold text-stone-900 mb-3" style="font-size: 2.8rem;">
+        మా గురించి (About KK LifeWise)
+      </h1>
+      <p class="text-stone-600 fs-5 mb-0" style="line-height: 1.6;">
+        ఆలోచన మారితే జీవితం మారుతుంది అనే బలమైన నమ్మకంతో ప్రారంభమైన ఒక విశిష్ట తెలుగు విజ్ఞాన ఉద్యమం.
+      </p>
+    </div>
+  </div>
+</div>
+
+<section class="py-5 bg-white">
+  <div class="container">
+    
+    <div class="row g-5 align-items-center mb-5">
+      <div class="col-lg-6">
+        <h2 class="fw-bold text-stone-900 mb-3 font-serif-telugu">మా లక్ష్యం & దృక్పథం (Our Mission & Vision)</h2>
+        <p class="text-stone-700 fs-5" style="line-height: 1.7;">
+          తెలుగు నేలలో ప్రతి ఒక్కరికీ నాణ్యమైన వ్యక్తిగత వికాసం, ఆర్థిక విజ్ఞానం, మరియు ప్రపంచ ప్రసిద్ధ ఆలోచనలను తమ మాతృభాషలోనే ఉచితంగా మరియు సులభంగా అందించడమే <strong>KK LifeWise</strong> ప్రధాన ఉద్దేశం.
         </p>
-        <p class="text-sm sm:text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            తెలుగు ప్రజలలో వ్యక్తిత్వ వికాసం, మానసిక స్థైర్యం, ఆర్థిక క్రమశిక్షణ మరియు ఉన్నత ఆలోచనలను పెంపొందించడమే మా ప్రధాన ధ్యేయం.
+        <p class="text-stone-600" style="line-height: 1.7;">
+          యూట్యూబ్‌లో <strong>KK Motivation Telugu</strong> ఛానెల్ ద్వారా 500,000 పైగా సబ్స్క్రైబర్ల విశ్వాసాన్ని పొందిన మేము, మరింత సమగ్రమైన రీతిలో ఆర్టికల్స్, పుస్తక సారాంశాలు, ఆడియో నోట్స్ మరియు ప్రాక్టికల్ వర్క్‌బుక్స్ రూపంలో ఈ వేదికను అందించడం గర్వకారణంగా భావిస్తున్నాము.
         </p>
+      </div>
+      <div class="col-lg-6">
+        <div class="p-4 p-md-5 rounded-4 bg-stone-900 text-white shadow-xl">
+          <div class="brand-logo-icon mb-4" style="width: 54px; height: 54px; font-size: 26px;">
+            <i class="bi bi-fire"></i>
+          </div>
+          <blockquote class="fs-4 fw-medium text-warning font-serif-telugu mb-3">
+            "ఆలోచన మార్చుకుంటే మీ భావోద్వేగాలు మారతాయి. భావోద్వేగాలు మారితే చేతలు మారతాయి. చేతలు మారితే జీవితమే మారుతుంది!"
+          </blockquote>
+          <span class="d-block text-stone-400 font-telugu">— KK Motivation Team</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Mission & Pillars -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-surface-container rounded-2xl p-6 sm:p-8 border border-white/10 shadow-xl gold-glow">
-            <div class="w-12 h-12 rounded-xl bg-primary-container/20 border border-primary/30 text-primary flex items-center justify-center mb-4">
-                <span class="material-symbols-outlined text-2xl">visibility</span>
+    <!-- 4 Core Pillars -->
+    <div class="pt-5 border-top">
+      <div class="text-center max-w-2xl mx-auto mb-5">
+        <span class="badge badge-pill badge-gold mb-2">పునాదులు</span>
+        <h3 class="fw-bold text-stone-900">KK LifeWise 4 ప్రధాన స్తంభాలు</h3>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-stone-50 border h-100 text-center">
+            <div class="brand-logo-icon mx-auto mb-3">
+              <i class="bi bi-lightning-charge"></i>
             </div>
-            <h2 class="text-xl font-bold text-on-surface font-sans mb-2">మా లక్ష్యం (Our Mission)</h2>
-            <p class="text-sm text-on-surface-variant leading-relaxed">
-                ప్రతి ఒక్కరూ తమ అంతర్గత సామర్థ్యాన్ని గుర్తించి, నిరాశ నుండి ఆశావహ దృక్పథం వైపు అడుగులు వేసేలా అత్యున్నత ప్రాక్టికల్ జ్ఞానాన్ని తెలుగు భాషలో అందించడం.
-            </p>
+            <h5 class="fw-bold text-stone-900 mb-2">1. మోటివేషన్</h5>
+            <p class="text-stone-600 small mb-0">శాస్త్రీయ మరియు భావోద్వేగ స్థిరత్వాన్ని అందించే ప్రేరణ.</p>
+          </div>
         </div>
 
-        <div class="bg-surface-container rounded-2xl p-6 sm:p-8 border border-white/10 shadow-xl gold-glow">
-            <div class="w-12 h-12 rounded-xl bg-primary-container/20 border border-primary/30 text-primary flex items-center justify-center mb-4">
-                <span class="material-symbols-outlined text-2xl">lightbulb</span>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-stone-50 border h-100 text-center">
+            <div class="brand-logo-icon mx-auto mb-3">
+              <i class="bi bi-coin"></i>
             </div>
-            <h2 class="text-xl font-bold text-on-surface font-sans mb-2">మా సూత్రాలు (Our Core Values)</h2>
-            <p class="text-sm text-on-surface-variant leading-relaxed">
-                స్పష్టత (Clarity), నిరంతర సాధన (Consistency), నిజాయితీ (Integrity), మరియు ఆచరణాత్మక ఆలోచన (Practical Action).
-            </p>
+            <h5 class="fw-bold text-stone-900 mb-2">2. ఆర్థిక వివేకం</h5>
+            <p class="text-stone-600 small mb-0">సామాన్యుడిని ఆర్థిక స్వాతంత్ర్యం దిశగా నడిపించే పాఠాలు.</p>
+          </div>
         </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-stone-50 border h-100 text-center">
+            <div class="brand-logo-icon mx-auto mb-3">
+              <i class="bi bi-briefcase"></i>
+            </div>
+            <h5 class="fw-bold text-stone-900 mb-2">3. కెరీర్ ఎదుగుదల</h5>
+            <p class="text-stone-600 small mb-0">ఆధునిక నైపుణ్యాలు మరియు ఉద్యోగ విజయ వ్యూహాలు.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 rounded-4 bg-stone-50 border h-100 text-center">
+            <div class="brand-logo-icon mx-auto mb-3">
+              <i class="bi bi-book"></i>
+            </div>
+            <h5 class="fw-bold text-stone-900 mb-2">4. పుస్తక విజ్ఞానం</h5>
+            <p class="text-stone-600 small mb-0">ప్రపంచ స్థాయి బెస్ట్ సెల్లర్ల అద్భుతమైన సారాంశాలు.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- What We Offer -->
-    <div class="bg-surface-container rounded-3xl p-6 sm:p-10 border border-white/10 shadow-xl space-y-6">
-        <h2 class="text-2xl font-bold text-primary font-sans">KK LifeWise వేదిక ద్వారా మీకు లభించేవి:</h2>
-        
-        <div class="space-y-4">
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-high/60 border border-white/5">
-                <span class="material-symbols-outlined text-amber-400 text-2xl shrink-0 mt-0.5">bolt</span>
-                <div>
-                    <h3 class="text-base font-bold text-on-surface">రోజువారీ ప్రేరణ & మైండ్‌సెట్ (Motivation)</h3>
-                    <p class="text-xs sm:text-sm text-on-surface-variant mt-1">నిరాశను పోగొట్టి క్రమశిక్షణతో కూడిన అలవాట్లను నిర్మించే వ్యాసాలు.</p>
-                </div>
-            </div>
+  </div>
+</section>
 
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-high/60 border border-white/5">
-                <span class="material-symbols-outlined text-emerald-400 text-2xl shrink-0 mt-0.5">payments</span>
-                <div>
-                    <h3 class="text-base font-bold text-on-surface">ఆర్థిక వివేకం & పెట్టుబడులు (Money)</h3>
-                    <p class="text-xs sm:text-sm text-on-surface-variant mt-1">సామాన్యులకు సులభంగా అర్థమయ్యే బడ్జెట్, SIP మరియు సంపద సృష్టి నియమాలు.</p>
-                </div>
-            </div>
-
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-high/60 border border-white/5">
-                <span class="material-symbols-outlined text-blue-400 text-2xl shrink-0 mt-0.5">work</span>
-                <div>
-                    <h3 class="text-base font-bold text-on-surface">కెరీర్ గ్రోత్ & హై ఇన్‌కమ్ స్కిల్స్ (Career)</h3>
-                    <p class="text-xs sm:text-sm text-on-surface-variant mt-1">ఇంటర్వ్యూ మెళకువలు, కమ్యూనికేషన్ పవర్ మరియు డిజిటల్ స్కిల్స్ గైడెన్స్.</p>
-                </div>
-            </div>
-
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-surface-container-high/60 border border-white/5">
-                <span class="material-symbols-outlined text-indigo-400 text-2xl shrink-0 mt-0.5">menu_book</span>
-                <div>
-                    <h3 class="text-base font-bold text-on-surface">పుస్తకాల సంగ్రహం & స్ఫూర్తి కథలు (Books & Stories)</h3>
-                    <p class="text-xs sm:text-sm text-on-surface-variant mt-1">అటామిక్ హ్యాబిట్స్, సైకాలజీ ఆఫ్ మనీ మరియు జీవితాన్ని మార్చే ఎపిసోడ్ కథనాలు.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Official Channels Section -->
-    <div class="bg-gradient-to-r from-surface-container-high to-surface-container rounded-3xl p-8 border border-primary/30 text-center space-y-6 shadow-2xl">
-        <h2 class="text-2xl font-bold text-on-surface font-sans">మమ్మల్ని అనుసరించండి (Join Our Community)</h2>
-        <div class="flex flex-wrap items-center justify-center gap-4">
-            <a href="https://www.youtube.com/@KKMotivationTelugu" target="_blank" rel="noopener noreferrer" class="btn-gold px-6 py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2">
-                <span class="material-symbols-outlined">smart_display</span>
-                YouTube: @KKMotivationTelugu
-            </a>
-            <a href="https://www.instagram.com/kkmotivationhub/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold px-6 py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2">
-                <span class="material-symbols-outlined">photo_camera</span>
-                Instagram: @kkmotivationhub
-            </a>
-        </div>
-    </div>
-</main>
-
-<?php require_once __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

@@ -1,0 +1,79 @@
+/* ==========================================================================
+   KK LIFEWISE - RESPONSIVE STYLESHEET
+   Mobile, Tablet, Desktop & Ultra-wide Breakpoints
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+  .site-header .navbar-collapse {
+    background: #ffffff;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-xl);
+    margin-top: 0.75rem;
+    border: 1px solid var(--stone-200);
+  }
+
+  .nav-link-custom {
+    padding: 0.65rem 1rem !important;
+    border-radius: 0.5rem;
+  }
+
+  .hero-heading {
+    font-size: 2.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .wisdom-card {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-heading {
+    font-size: 1.85rem !important;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn-gold,
+  .hero-buttons .btn-gold-outline,
+  .hero-buttons .btn-dark {
+    width: 100%;
+  }
+
+  .stat-card-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--stone-200);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-card-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .quote-canvas-preview {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .site-footer {
+    padding-top: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1240px;
+  }
+
+  .hero-heading {
+    font-size: 3.25rem;
+    line-height: 1.15;
+  }
+}

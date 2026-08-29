@@ -1,74 +1,113 @@
 <?php
-// search.php - Global Search Page & JSON API for KK LifeWise
+// search.php - Live Search JSON API & Full Search Page
 require_once __DIR__ . '/functions.php';
 
-$query = $_GET['q'] ?? '';
-$format = $_GET['format'] ?? 'html';
+$query = isset($_GET['q']) ? trim($_GET['q']) : '';
 
-$results = search_all_content($query);
-
-if ($format === 'json') {
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode($results, JSON_UNESCAPED_UNICODE);
+// AJAX Endpoint for Modal Search
+if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
+    header('Content-Type: application/json');
+    $results = search_all_content($query);
+    echo json_encode($results);
     exit;
 }
 
-$page_title = 'Search Results for "' . htmlspecialchars($query) . '" - KK LifeWise';
-$page_description = 'Search results for ' . htmlspecialchars($query) . ' on KK LifeWise.';
-$active_page = 'search';
+$results = search_all_content($query);
+$custom_page_title = 'శోధన ఫలితాలు: ' . htmlspecialchars($query) . ' | KK LifeWise';
 
-require_once __DIR__ . '/header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
-    <div class="p-8 rounded-3xl bg-surface-container border border-white/10 shadow-xl space-y-4">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-primary font-sans">
-            శోధన ఫలితాలు (Search Results)
-        </h1>
-        
-        <form action="<?= base_url('search.php') ?>" method="GET" class="flex gap-2">
-            <input type="text" name="q" value="<?= htmlspecialchars($query) ?>" placeholder="వ్యాసాలు, పుస్తకాలు, కథలు..." class="flex-1 bg-surface-container-high border border-white/15 rounded-xl py-3 px-4 text-on-surface text-sm focus:border-primary focus:outline-none">
-            <button type="submit" class="btn-gold px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-1">
-                <span class="material-symbols-outlined text-base">search</span>
-                వెతకండి
-            </button>
+<div class="bg-stone-100 py-4 border-bottom border-stone-200">
+  <div class="container">
+    <h1 class="fw-bold fs-3 text-stone-900 mb-0">
+      శోధన ఫలితాలు: <span class="text-warning-emphasis">"<?php echo htmlspecialchars($query); ?>"</span>
+    </h1>
+  </div>
+</div>
+
+<div class="py-5 bg-white">
+  <div class="container">
+    
+    <!-- Search Bar Input -->
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8">
+        <form action="/search.php" method="GET" class="input-group input-group-lg shadow-sm">
+          <input type="text" name="q" class="form-control" value="<?php echo htmlspecialchars($query); ?>" placeholder="శోధించండి (ఉదా: శ్రీకృష్ణుడు, మనీ, పుస్తకం)..." required>
+          <button class="btn btn-gold" type="submit">శోధించండి</button>
         </form>
-
-        <?php if (!empty($query)): ?>
-            <p class="text-xs text-on-surface-variant">
-                "<strong><?= htmlspecialchars($query) ?></strong>" కి సంబంధించి <strong><?= count($results) ?></strong> ఫలితాలు లభించాయి.
-            </p>
-        <?php endif; ?>
+      </div>
     </div>
 
-    <div class="space-y-4">
-        <?php if (empty($results)): ?>
-            <div class="p-12 text-center rounded-3xl bg-surface-container border border-white/5 space-y-3">
-                <span class="material-symbols-outlined text-5xl text-primary/40">search_off</span>
-                <h3 class="text-lg font-bold text-on-surface">ఎలాంటి ఫలితాలు లభించలేదు</h3>
-                <p class="text-xs text-on-surface-variant max-w-sm mx-auto">
-                    దయచేసి వేరే కీవర్డ్‌తో ప్రయత్నించండి (ఉదా: శ్రీకృష్ణుడు, డబ్బు, మైండ్‌సెట్, కెరీర్)...
-                </p>
-            </div>
-        <?php else: ?>
-            <?php foreach ($results as $item): ?>
-                <a href="<?= htmlspecialchars($item['url']) ?>" class="block p-5 rounded-2xl bg-surface-container border border-white/5 hover:border-primary/40 transition-all text-decoration-none gold-glow group">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="px-2.5 py-0.5 rounded text-xs font-bold <?= $item['badge_color'] ?>">
-                            <?= htmlspecialchars($item['type_label']) ?>
-                        </span>
-                        <span class="text-xs text-on-surface-variant font-sans"><?= htmlspecialchars($item['category']) ?></span>
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-on-surface group-hover:text-primary transition-colors mb-1">
-                        <?= htmlspecialchars($item['title']) ?>
-                    </h3>
-                    <p class="text-xs sm:text-sm text-on-surface-variant line-clamp-2">
-                        <?= htmlspecialchars($item['excerpt']) ?>
-                    </p>
-                </a>
+    <!-- Search Results Section -->
+    <?php
+    $total = count($results['articles']) + count($results['books']) + count($results['videos']) + count($results['stories']);
+    ?>
+
+    <?php if (empty($query)): ?>
+      <div class="text-center py-5 text-muted">
+        <i class="bi bi-search display-4 text-warning mb-3 d-block"></i>
+        <h4>ఏదైనా టాపిక్ లేదా అంశం శోధించండి</h4>
+      </div>
+    <?php elseif ($total === 0): ?>
+      <div class="text-center py-5">
+        <i class="bi bi-emoji-frown display-4 text-muted mb-3 d-block"></i>
+        <h3>క్షమించండి! "<?php echo htmlspecialchars($query); ?>" కి సరిపడే ఫలితాలు దొరకలేదు.</h3>
+        <p class="text-muted">దయచేసి వేరే పదాలతో లేదా సంబంధిత టాపిక్స్‌తో ప్రయత్నించండి.</p>
+        <a href="/index.php" class="btn btn-gold-outline mt-3">హోమ్ పేజీకి వెళ్లండి</a>
+      </div>
+    <?php else: ?>
+      
+      <!-- Articles Results -->
+      <?php if (!empty($results['articles'])): ?>
+        <div class="mb-5">
+          <h3 class="fw-bold text-stone-900 mb-4 pb-2 border-bottom"><i class="bi bi-newspaper text-warning me-2"></i>వ్యాసాలు (<?php echo count($results['articles']); ?>)</h3>
+          <div class="row g-4">
+            <?php foreach ($results['articles'] as $art): ?>
+              <div class="col-md-6 col-lg-4">
+                <div class="lw-card p-4">
+                  <span class="badge bg-warning text-dark mb-2 align-self-start"><?php echo $art['category_name']; ?></span>
+                  <h5 class="fw-bold mb-2">
+                    <a href="/article.php?slug=<?php echo $art['slug']; ?>" class="text-decoration-none text-stone-900 hover-warning">
+                      <?php echo htmlspecialchars($art['title']); ?>
+                    </a>
+                  </h5>
+                  <p class="text-stone-600 small flex-grow-1"><?php echo htmlspecialchars($art['excerpt']); ?></p>
+                  <a href="/article.php?slug=<?php echo $art['slug']; ?>" class="btn btn-sm btn-gold mt-auto">చదవండి <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
             <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
-</main>
+          </div>
+        </div>
+      <?php endif; ?>
 
-<?php require_once __DIR__ . '/footer.php'; ?>
+      <!-- Books Results -->
+      <?php if (!empty($results['books'])): ?>
+        <div class="mb-5">
+          <h3 class="fw-bold text-stone-900 mb-4 pb-2 border-bottom"><i class="bi bi-book text-warning me-2"></i>పుస్తక సారాంశాలు (<?php echo count($results['books']); ?>)</h3>
+          <div class="row g-4">
+            <?php foreach ($results['books'] as $book): ?>
+              <div class="col-md-6 col-lg-4">
+                <div class="lw-card p-4">
+                  <span class="badge bg-warning bg-opacity-20 text-warning-emphasis mb-2 align-self-start"><?php echo $book['category']; ?></span>
+                  <h5 class="fw-bold mb-1">
+                    <a href="/book-detail.php?slug=<?php echo $book['slug']; ?>" class="text-decoration-none text-stone-900 hover-warning">
+                      <?php echo htmlspecialchars($book['title']); ?>
+                    </a>
+                  </h5>
+                  <small class="text-muted d-block mb-2">రచయిత: <?php echo $book['author']; ?></small>
+                  <p class="text-stone-600 small flex-grow-1"><?php echo htmlspecialchars($book['description']); ?></p>
+                  <a href="/book-detail.php?slug=<?php echo $book['slug']; ?>" class="btn btn-sm btn-gold mt-auto">సారాంశం చూడండి <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+
+    <?php endif; ?>
+
+  </div>
+</div>
+
+<?php include __DIR__ . '/footer.php'; ?>

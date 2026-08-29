@@ -1,136 +1,136 @@
 <?php
-// contact.php - Contact KK LifeWise Team
-$page_title = 'Contact Us (సంప్రదించండి) - KK LifeWise | ఆలోచన మార్చు • జీవితం మార్చు';
-$page_description = 'Get in touch with KK LifeWise for inquiries, feedback, collaboration, and community support.';
-$active_page = 'contact';
+// contact.php - Contact Us Page
+require_once __DIR__ . '/functions.php';
 
-require_once __DIR__ . '/header.php';
+$custom_page_title = 'సంప్రదించండి (Contact Us) | KK LifeWise';
+$custom_page_desc = 'KK LifeWise & KK Motivation Telugu బృందాన్ని సంప్రదించండి.';
+
+$success_msg = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $subject = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $success_msg = 'మీ సందేశం విజయవంతంగా అందింది. మా బృందం త్వరలోనే మీకు ప్రత్యుత్తరం ఇస్తుంది. ధన్యవాదాలు!';
+}
+
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-12">
-    <!-- Header Banner -->
-    <div class="relative py-12 px-6 sm:px-10 rounded-3xl overflow-hidden glass-panel border border-primary/20 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/20 text-primary text-xs font-bold uppercase mb-3">
-            <span class="material-symbols-outlined text-sm">mail</span>
-            Get In Touch
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-primary font-sans mb-3">
-            Contact Us (సంప్రదించండి)
-        </h1>
-        <p class="text-base sm:text-lg text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-            మీ సలహాలు, సందేహాలు లేదా భాగస్వామ్యం కోసం మమ్మల్ని సంప్రదించండి. మీ ఫీడ్‌బ్యాక్ మాకు ఎంతో విలువైంది.
-        </p>
+<div class="bg-hero-pattern py-5 border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    <div class="max-w-3xl">
+      <div class="badge badge-pill badge-gold mb-2">
+        <i class="bi bi-chat-dots-fill text-warning"></i> కనెక్ట్ అవ్వండి
+      </div>
+      <h1 class="hero-heading font-serif-telugu fw-bold text-stone-900 mb-3" style="font-size: 2.8rem;">
+        సంప్రదించండి (Contact Us)
+      </h1>
+      <p class="text-stone-600 fs-5 mb-0" style="line-height: 1.6;">
+        మీ విలువైన అభిప్రాయాలు, సందేహాలు లేదా భాగస్వామ్యం కోసం మమ్మల్ని నేరుగా సంప్రదించవచ్చు.
+      </p>
     </div>
+  </div>
+</div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- Contact Information Side -->
-        <div class="lg:col-span-5 space-y-6">
-            <div class="bg-surface-container rounded-3xl p-6 sm:p-8 border border-white/10 shadow-xl space-y-6">
-                <h2 class="text-xl font-bold text-primary font-sans">నేరుగా కలవండి</h2>
-
-                <div class="space-y-4">
-                    <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-xl">alternate_email</span>
-                        </div>
-                        <div>
-                            <span class="text-xs text-on-surface-variant block">ఈమెయిల్ (Email)</span>
-                            <span class="text-sm font-semibold text-on-surface">contact@kklifewise.com</span>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-xl">smart_display</span>
-                        </div>
-                        <div>
-                            <span class="text-xs text-on-surface-variant block">యూట్యూబ్ (YouTube)</span>
-                            <a href="https://www.youtube.com/@KKMotivationTelugu" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-primary hover:underline">@KKMotivationTelugu</a>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-pink-600/20 text-pink-400 flex items-center justify-center shrink-0">
-                            <span class="material-symbols-outlined text-xl">photo_camera</span>
-                        </div>
-                        <div>
-                            <span class="text-xs text-on-surface-variant block">ఇన్‌స్టాగ్రామ్ (Instagram)</span>
-                            <a href="https://www.instagram.com/kkmotivationhub/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-primary hover:underline">@kkmotivationhub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pt-4 border-t border-white/5">
-                    <p class="text-xs text-on-surface-variant leading-relaxed">
-                        సాధారణంగా మేము 24-48 గంటల్లో మీ సందేశాలకు స్పందిస్తాము.
-                    </p>
-                </div>
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-5">
+      
+      <!-- Contact Info Cards -->
+      <div class="col-lg-5">
+        <div class="p-4 p-md-5 rounded-4 bg-stone-900 text-white shadow-lg h-100">
+          <h3 class="fw-bold text-white mb-4 font-serif-telugu">కమ్యూనిటీ & సోషల్ మీడియా</h3>
+          
+          <div class="d-flex flex-column gap-4 mb-5">
+            <div class="d-flex align-items-center gap-3">
+              <div class="brand-logo-icon" style="background: #dc2626;">
+                <i class="bi bi-youtube"></i>
+              </div>
+              <div>
+                <strong class="d-block text-white">YouTube ఛానెల్</strong>
+                <a href="<?php echo YOUTUBE_CHANNEL_URL; ?>" target="_blank" rel="noopener" class="text-warning text-decoration-none small">
+                  @KKMotivationTelugu (500K+ Subs)
+                </a>
+              </div>
             </div>
-        </div>
 
-        <!-- Contact Form -->
-        <div class="lg:col-span-7">
-            <div class="bg-surface-container rounded-3xl p-6 sm:p-8 border border-white/10 shadow-xl">
-                <h2 class="text-xl sm:text-2xl font-bold text-on-surface font-sans mb-6">సందేశాన్ని పంపండి (Send a Message)</h2>
-
-                <form id="contact-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-primary uppercase font-sans mb-1.5">మీ పూర్తి పేరు (Full Name)</label>
-                        <input type="text" id="contact-name" required placeholder="ఉదా: రాజేష్ కుమార్" class="w-full bg-surface-container-high border border-white/15 rounded-xl py-3 px-4 text-on-surface text-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-primary uppercase font-sans mb-1.5">ఈమెయిల్ చిరునామా (Email Address)</label>
-                        <input type="email" id="contact-email" required placeholder="name@example.com" class="w-full bg-surface-container-high border border-white/15 rounded-xl py-3 px-4 text-on-surface text-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-primary uppercase font-sans mb-1.5">విషయం (Subject)</label>
-                        <select id="contact-subject" class="w-full bg-surface-container-high border border-white/15 rounded-xl py-3 px-4 text-on-surface text-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                            <option value="general">సాధారణ సమాచారం (General Query)</option>
-                            <option value="feedback">ఫీడ్‌బ్యాక్ / సలహాలు (Feedback)</option>
-                            <option value="collaboration">భాగస్వామ్యం (Collaboration / Video Request)</option>
-                            <option value="counseling">జీవన విశ్లేషణ సహాయం (Life Guidance)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-primary uppercase font-sans mb-1.5">మీ సందేశం (Your Message)</label>
-                        <textarea id="contact-msg" rows="4" required placeholder="మీ సందేశాన్ని ఇక్కడ స్పష్టంగా నమోదు చేయండి..." class="w-full bg-surface-container-high border border-white/15 rounded-xl py-3 px-4 text-on-surface text-sm focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"></textarea>
-                    </div>
-
-                    <button type="submit" id="submit-contact-btn" class="btn-gold w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
-                        <span class="material-symbols-outlined text-lg">send</span>
-                        సందేశం పంపండి (Submit Message)
-                    </button>
-                </form>
+            <div class="d-flex align-items-center gap-3">
+              <div class="brand-logo-icon" style="background: #e1306c;">
+                <i class="bi bi-instagram"></i>
+              </div>
+              <div>
+                <strong class="d-block text-white">Instagram హ్యాండిల్</strong>
+                <a href="<?php echo INSTAGRAM_PROFILE_URL; ?>" target="_blank" rel="noopener" class="text-warning text-decoration-none small">
+                  @kkmotivationhub
+                </a>
+              </div>
             </div>
+
+            <div class="d-flex align-items-center gap-3">
+              <div class="brand-logo-icon" style="background: #2563eb;">
+                <i class="bi bi-envelope"></i>
+              </div>
+              <div>
+                <strong class="d-block text-white">ఇమెయిల్ అడ్రస్</strong>
+                <span class="text-stone-300 small"><?php echo CONTACT_EMAIL; ?></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-3 bg-stone-800 border border-stone-700">
+            <h6 class="fw-bold text-warning mb-1"><i class="bi bi-lightbulb me-1"></i> మీ ఆలోచనలను పంచుకోండి:</h6>
+            <p class="small text-stone-300 mb-0">
+              మీరు ఏ అంశంపై లేదా ఏ పుస్తకంపై తదుపరి వీడియో లేదా వ్యాసం కోరుకుంటున్నారో మాకు తెలియజేయండి!
+            </p>
+          </div>
         </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="col-lg-7">
+        <div class="p-4 p-md-5 rounded-4 bg-stone-50 border border-stone-200 shadow-sm">
+          <h3 class="fw-bold text-stone-900 mb-4 font-serif-telugu">మాకు సందేశం పంపండి</h3>
+          
+          <?php if (!empty($success_msg)): ?>
+            <div class="alert alert-success d-flex align-items-center gap-2 mb-4">
+              <i class="bi bi-check-circle-fill fs-5"></i>
+              <div><?php echo $success_msg; ?></div>
+            </div>
+          <?php endif; ?>
+
+          <form action="/contact.php" method="POST">
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label small fw-bold text-stone-700">మీ పూర్తి పేరు *</label>
+                <input type="text" class="form-control" id="name" name="name" required placeholder="ఉదా: కిరణ్ కుమార్">
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label small fw-bold text-stone-700">మీ ఇమెయిల్ అడ్రస్ *</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="subject" class="form-label small fw-bold text-stone-700">విషయం (Subject)</label>
+              <input type="text" class="form-control" id="subject" name="subject" placeholder="సందేశం లేదా సూచన సారాంశం">
+            </div>
+
+            <div class="mb-4">
+              <label for="message" class="form-label small fw-bold text-stone-700">మీ సందేశం (Message) *</label>
+              <textarea class="form-control" id="message" name="message" rows="5" required placeholder="మీ సందేశాన్ని ఇక్కడ టైప్ చేయండి..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg w-100">
+              <i class="bi bi-send"></i> సందేశాన్ని పంపండి
+            </button>
+          </form>
+        </div>
+      </div>
+
     </div>
-</main>
+  </div>
+</section>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contact-form');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-contact-btn');
-            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> పంపబడుతోంది...';
-            
-            setTimeout(() => {
-                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> సందేశం అందింది!';
-                form.reset();
-                if (typeof showToast === 'function') {
-                    showToast('ధన్యవాదాలు! మీ సందేశం విజయవంతంగా అందింది.');
-                }
-                setTimeout(() => {
-                    btn.innerHTML = '<span class="material-symbols-outlined text-lg">send</span> సందేశం పంపండి (Submit Message)';
-                }, 3000);
-            }, 1000);
-        });
-    }
-});
-</script>
-
-<?php require_once __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

@@ -1,99 +1,139 @@
 <?php
-// book-detail.php - Detailed Book Summary View for KK LifeWise
+// book-detail.php - Single Book Summary Detail & AJAX Endpoint
 require_once __DIR__ . '/functions.php';
 
-$slug = $_GET['slug'] ?? '';
-$book = get_book_by_slug($slug);
+// Handle AJAX Request from Quick View Modal
+if (isset($_GET['ajax']) && $_GET['ajax'] == 1) {
+    header('Content-Type: application/json');
+    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+    $slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
+    
+    $book = $id > 0 ? get_book_by_id($id) : get_book_by_slug($slug);
+    if ($book) {
+        echo json_encode($book);
+    } else {
+        echo json_encode(['error' => 'పుస్తక సారాంశం దొరకలేదు.']);
+    }
+    exit;
+}
+
+// Regular Page View
+$slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+$book = $slug ? get_book_by_slug($slug) : ($id ? get_book_by_id($id) : null);
 
 if (!$book) {
     $book = $books[0];
 }
 
-$page_title = $book['title'] . ' (సారాంశం) - KK LifeWise';
-$page_description = $book['summary'];
-$active_page = 'books';
+$custom_page_title = $book['title'] . ' - తెలుగు సారాంశం | KK LifeWise';
+$custom_page_desc = $book['description'];
 
-require_once __DIR__ . '/header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-on-surface-variant font-sans">
-        <a href="<?= base_url('index.php') ?>" class="hover:text-primary">Home</a>
-        <span>/</span>
-        <a href="<?= base_url('books.php') ?>" class="hover:text-primary">Books</a>
-        <span>/</span>
-        <span class="text-primary truncate"><?= htmlspecialchars($book['title']) ?></span>
+<div class="bg-stone-100 py-4 border-bottom border-stone-200">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 small">
+        <li class="breadcrumb-item"><a href="/index.php" class="text-decoration-none text-stone-600">హోమ్</a></li>
+        <li class="breadcrumb-item"><a href="/books.php" class="text-decoration-none text-stone-600">పుస్తకాలు</a></li>
+        <li class="breadcrumb-item active text-stone-900 text-truncate" style="max-width: 300px;" aria-current="page"><?php echo htmlspecialchars($book['title']); ?></li>
+      </ol>
     </nav>
+  </div>
+</div>
 
-    <!-- Book Summary Card -->
-    <article class="bg-surface-container rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl space-y-8">
-        <div class="flex flex-col md:flex-row gap-8 items-start pb-8 border-b border-white/10">
-            <img src="<?= htmlspecialchars($book['cover']) ?>" alt="<?= htmlspecialchars($book['title']) ?>" class="w-full md:w-52 h-72 object-cover rounded-2xl shadow-xl border border-white/10 shrink-0">
-            
-            <div class="space-y-4">
-                <div class="flex items-center gap-2">
-                    <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold">
-                        <?= htmlspecialchars($book['category_name']) ?>
-                    </span>
-                    <span class="text-xs text-amber-400 font-bold flex items-center gap-1 font-sans">
-                        <span class="material-symbols-outlined text-sm fill">star</span> <?= $book['rating'] ?>
-                    </span>
+<article class="py-5 bg-white">
+  <div class="container">
+    
+    <!-- Hero Header of Book Detail -->
+    <div class="row g-5 align-items-center mb-5 pb-5 border-bottom border-stone-200">
+      <div class="col-md-4 text-center">
+        <div class="book-card-visual shadow-lg mx-auto" style="max-width: 280px;">
+          <img src="<?php echo htmlspecialchars($book['cover_image']); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
+        </div>
+      </div>
+      <div class="col-md-8">
+        <span class="badge bg-warning text-dark px-3 py-1.5 rounded-pill fw-bold mb-2">
+          <?php echo htmlspecialchars($book['category']); ?>
+        </span>
+        <h1 class="font-serif-telugu fw-bold text-stone-900 mb-2" style="font-size: 2.5rem;">
+          <?php echo htmlspecialchars($book['title']); ?>
+        </h1>
+        <h5 class="text-warning-emphasis fw-bold mb-3"><?php echo htmlspecialchars($book['tagline'] ?? ''); ?></h5>
+        <div class="d-flex align-items-center gap-3 text-stone-500 mb-4">
+          <span><i class="bi bi-person text-warning"></i> రచయిత: <strong><?php echo htmlspecialchars($book['author']); ?></strong></span>
+          <span>•</span>
+          <div class="text-warning small">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <span class="text-muted ms-1">(<?php echo $book['rating']; ?>)</span>
+          </div>
+        </div>
+
+        <p class="fs-5 text-stone-700 font-serif-telugu mb-4" style="line-height: 1.6;">
+          <?php echo htmlspecialchars($book['description']); ?>
+        </p>
+
+        <div class="d-flex flex-wrap gap-3">
+          <button type="button" class="btn btn-gold" onclick="document.getElementById('summaryDetailsSection').scrollIntoView({behavior: 'smooth'})">
+            <i class="bi bi-book"></i> సారాంశం చదవండి
+          </button>
+          <button type="button" class="btn btn-outline-success" onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent('<?php echo addslashes($book['title']); ?> - ' + window.location.href), '_blank')">
+            <i class="bi bi-whatsapp"></i> షేర్
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content & Lessons -->
+    <div class="row justify-content-center" id="summaryDetailsSection">
+      <div class="col-lg-8">
+        
+        <!-- Why Read This Book -->
+        <div class="p-4 rounded-4 bg-warning bg-opacity-10 border border-warning border-opacity-30 mb-5">
+          <h4 class="fw-bold text-stone-900 mb-2"><i class="bi bi-lightbulb-fill text-warning me-2"></i>ఈ పుస్తకం ఎందుకు చదవాలి?</h4>
+          <p class="text-stone-700 mb-0 font-telugu" style="line-height: 1.7;">
+            <?php echo htmlspecialchars($book['why_read'] ?? 'వ్యక్తిగత వికాసం మరియు జీవిత లక్ష్యాలను సులభంగా సాధించడానికి రచయిత అందించిన శాస్త్రీయ మార్గదర్శకం.'); ?>
+          </p>
+        </div>
+
+        <!-- 4 Key Lessons -->
+        <?php if (!empty($book['key_lessons'])): ?>
+          <div class="mb-5">
+            <h3 class="fw-bold text-stone-900 mb-4 fs-4"><i class="bi bi-check2-all text-warning me-2"></i>ముఖ్యమైన 4 సూత్రాలు & పాఠాలు</h3>
+            <div class="d-flex flex-column gap-3">
+              <?php foreach ($book['key_lessons'] as $idx => $lesson): ?>
+                <div class="p-4 rounded-4 bg-stone-50 border d-flex gap-3 align-items-start">
+                  <span class="badge bg-warning text-dark rounded-circle fs-5 fw-bold flex-shrink-0" style="width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;">
+                    <?php echo $idx + 1; ?>
+                  </span>
+                  <div>
+                    <h5 class="fw-bold text-stone-900 mb-1"><?php echo htmlspecialchars($lesson['title']); ?></h5>
+                    <p class="text-stone-600 mb-0 small" style="line-height: 1.6;"><?php echo htmlspecialchars($lesson['description']); ?></p>
+                  </div>
                 </div>
-
-                <h1 class="text-2xl sm:text-4xl font-extrabold text-on-surface font-sans leading-tight">
-                    <?= htmlspecialchars($book['title']) ?>
-                </h1>
-
-                <p class="text-sm font-semibold text-primary">రచయిత: <?= htmlspecialchars($book['author']) ?></p>
-                <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
-                    <?= htmlspecialchars($book['tagline']) ?>
-                </p>
-
-                <div class="flex flex-wrap items-center gap-4 pt-2 text-xs text-on-surface-variant font-sans">
-                    <span class="p-2 rounded-lg bg-surface-container-high border border-white/5"><?= htmlspecialchars($book['pages']) ?></span>
-                    <span class="p-2 rounded-lg bg-surface-container-high border border-white/5"><?= htmlspecialchars($book['read_time']) ?></span>
-                </div>
+              <?php endforeach; ?>
             </div>
-        </div>
+          </div>
+        <?php endif; ?>
 
-        <!-- Book Overview & Key Points -->
-        <div class="space-y-6">
-            <h2 class="text-xl sm:text-2xl font-bold text-primary pb-2 border-b border-white/10">
-                పుస్తకం యొక్క ముఖ్య సారాంశం (Book Overview)
-            </h2>
-            <p class="text-base text-on-surface leading-relaxed">
-                <?= htmlspecialchars($book['summary']) ?>
-            </p>
+        <!-- Full Summary Content -->
+        <?php if (!empty($book['full_summary'])): ?>
+          <div class="article-content-body font-telugu text-stone-800 fs-6 pt-4 border-top" style="line-height: 1.8;">
+            <?php echo $book['full_summary']; ?>
+          </div>
+        <?php endif; ?>
 
-            <h3 class="text-lg font-bold text-on-surface pt-4">ఈ పుస్తకం నుండి నేర్చుకోవాల్సిన 4 కీలక పాఠాలు:</h3>
-            <div class="space-y-3">
-                <?php foreach ($book['key_points'] as $index => $point): ?>
-                    <div class="p-4 rounded-xl bg-surface-container-high/70 border border-white/5 flex items-start gap-3">
-                        <div class="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                            <?= $index + 1 ?>
-                        </div>
-                        <p class="text-sm sm:text-base text-on-surface leading-relaxed">
-                            <?= htmlspecialchars($point) ?>
-                        </p>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
+      </div>
+    </div>
 
-        <!-- Footer Actions -->
-        <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <a href="<?= base_url('books.php') ?>" class="btn-outline-gold px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-sm">arrow_back</span>
-                అన్ని పుస్తకాలు
-            </a>
+  </div>
+</article>
 
-            <button type="button" class="btn-gold px-6 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 share-quote-btn">
-                <span class="material-symbols-outlined text-base">share</span>
-                మిత్రులతో పంచుకోండి
-            </button>
-        </div>
-    </article>
-</main>
-
-<?php require_once __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

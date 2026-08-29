@@ -1,76 +1,61 @@
 <?php
-// pdfs.php - KK LifeWise Free PDF Downloads Hub
-$page_title = 'Free PDFs (ఉచిత ఈ-బుక్స్) - KK LifeWise | ఆలోచన మార్చు • జీవితం మార్చు';
-$page_description = 'Download free Telugu workbooks, goal setting guides, habit trackers, and financial planning PDFs.';
-$active_page = 'pdfs';
+// pdfs.php - Free Downloadable PDF Guides Page
+require_once __DIR__ . '/functions.php';
 
-require_once __DIR__ . '/header.php';
-$all_pdfs = get_pdfs();
+$custom_page_title = 'ఉచిత PDF గైడ్స్ & వర్క్‌బుక్స్ | KK LifeWise';
+$custom_page_desc = 'జీవిత లక్ష్యాలు, శ్రీకృష్ణుని విజయ రహస్యాలు మరియు మనీ మేనేజ్‌మెంట్ ఉచిత తెలుగు PDF వర్క్‌బుక్స్.';
+
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-12">
-    <!-- Header Banner -->
-    <div class="relative py-12 px-6 sm:px-10 rounded-3xl overflow-hidden glass-panel border border-purple-500/20 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase mb-3">
-            <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
-            Free Printable & Digital Resources
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-primary font-sans mb-3">
-            Free PDFs (ఉచిత ఈ-బుక్స్ & వర్క్‌బుక్స్)
-        </h1>
-        <p class="text-base sm:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            మీ లక్ష్యాలను సాధించడానికి, అలవాట్లను మార్చుకోవడానికి మరియు సంపదను నిర్మించడానికి రూపొందించిన ఉచిత వర్క్‌బుక్స్.
-        </p>
+<div class="bg-hero-pattern py-5 border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    <div class="max-w-3xl">
+      <div class="badge badge-pill badge-gold mb-2">
+        <i class="bi bi-file-earmark-pdf-fill text-warning"></i> ఉచిత వనరులు
+      </div>
+      <h1 class="hero-heading font-serif-telugu fw-bold text-stone-900 mb-3" style="font-size: 2.8rem;">
+        ఉచిత PDF గైడ్స్ (Free PDFs)
+      </h1>
+      <p class="text-stone-600 fs-5 mb-0" style="line-height: 1.6;">
+        మీ దైనందిన జీవితంలో ఆచరించడానికి అవసరమైన స్టడీ ప్లానర్స్, డైలీ చెక్‌లిస్ట్‌లు మరియు ప్రాక్టికల్ వర్క్‌షీట్స్ ఉచితంగా డౌన్‌లోడ్ చేసుకోండి.
+      </p>
     </div>
+  </div>
+</div>
 
-    <!-- PDFs Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <?php foreach ($all_pdfs as $pdf): ?>
-            <div class="bg-surface-container rounded-3xl p-6 sm:p-8 border border-white/10 shadow-xl gold-glow flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold">
-                            <?= htmlspecialchars($pdf['category_name']) ?>
-                        </span>
-                        <span class="text-xs text-purple-400 font-bold font-sans">
-                            <?= htmlspecialchars($pdf['downloads']) ?>
-                        </span>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-6 items-start">
-                        <img src="<?= htmlspecialchars($pdf['thumbnail']) ?>" alt="<?= htmlspecialchars($pdf['title']) ?>" class="w-full sm:w-36 h-48 object-cover rounded-xl shadow-md border border-white/10 shrink-0">
-                        <div class="space-y-2">
-                            <h2 class="text-xl font-bold text-on-surface hover:text-primary transition-colors">
-                                <a href="<?= base_url('pdf-detail.php?slug=' . $pdf['slug']) ?>" class="text-on-surface hover:text-primary text-decoration-none">
-                                    <?= htmlspecialchars($pdf['title']) ?>
-                                </a>
-                            </h2>
-                            <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-                                <?= htmlspecialchars($pdf['description']) ?>
-                            </p>
-                            
-                            <div class="space-y-1 pt-2">
-                                <?php foreach ($pdf['features'] as $feat): ?>
-                                    <div class="flex items-center gap-1.5 text-xs text-on-surface-variant">
-                                        <span class="material-symbols-outlined text-purple-400 text-sm">check_circle</span>
-                                        <span><?= htmlspecialchars($feat) ?></span>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    </div>
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-4">
+      <?php foreach ($pdfs as $pdf): ?>
+        <div class="col-lg-6">
+          <div class="lw-card p-4">
+            <div class="row g-4 align-items-center">
+              <div class="col-sm-4 text-center">
+                <img src="<?php echo htmlspecialchars($pdf['cover']); ?>" class="img-fluid rounded-3 shadow-sm" alt="<?php echo htmlspecialchars($pdf['title']); ?>">
+              </div>
+              <div class="col-sm-8 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <span class="badge bg-warning text-dark"><?php echo htmlspecialchars($pdf['category']); ?></span>
+                  <span class="small text-muted"><?php echo $pdf['pages']; ?> • <?php echo $pdf['file_size']; ?></span>
                 </div>
-
-                <div class="pt-6 mt-4 border-t border-white/5 flex items-center justify-between gap-4">
-                    <span class="text-xs text-on-surface-variant font-sans"><?= htmlspecialchars($pdf['file_size']) ?> • <?= htmlspecialchars($pdf['pages_count']) ?></span>
-                    <a href="<?= base_url('pdf-detail.php?slug=' . $pdf['slug']) ?>" class="btn-gold px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 text-decoration-none">
-                        <span class="material-symbols-outlined text-base">download</span>
-                        డౌన్‌లోడ్ పేజీ
-                    </a>
+                <h5 class="fw-bold text-stone-900 mb-2"><?php echo htmlspecialchars($pdf['title']); ?></h5>
+                <p class="text-stone-600 small mb-3 flex-grow-1"><?php echo htmlspecialchars($pdf['description']); ?></p>
+                <div class="d-flex gap-2 mt-auto">
+                  <a href="/pdf-detail.php?id=<?php echo $pdf['id']; ?>" class="btn btn-sm btn-gold">
+                    <i class="bi bi-download"></i> డౌన్‌లోడ్
+                  </a>
+                  <a href="/pdf-detail.php?id=<?php echo $pdf['id']; ?>" class="btn btn-sm btn-outline-dark">
+                    వివరాలు
+                  </a>
                 </div>
+              </div>
             </div>
-        <?php endforeach; ?>
+          </div>
+        </div>
+      <?php endforeach; ?>
     </div>
-</main>
+  </div>
+</section>
 
-<?php require_once __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

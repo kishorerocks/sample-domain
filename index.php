@@ -1,428 +1,475 @@
 <?php
-// index.php - KK LifeWise Homepage
-$page_title = 'KK LifeWise - ఆలోచన మార్చు • జీవితం మార్చు | Telugu Personal Growth';
-$page_description = 'KK LifeWise - Telugu Motivation, Financial Freedom, Career Skills, Inspiring Stories, Book Summaries and Free PDF Resources.';
-$active_page = 'home';
+// index.php - KK LifeWise Main Homepage
+require_once __DIR__ . '/functions.php';
 
-require_once __DIR__ . '/header.php';
-$latest_articles = array_slice($articles, 0, 3);
-$featured_video = $videos[0]; // Sri Krishna 6 Vijaya Rahasyalu (QXhd_yW2VEE)
-$featured_books = array_slice($books, 0, 3);
-$featured_stories = array_slice($stories, 0, 2);
-$featured_pdfs = array_slice($pdfs, 0, 3);
+$custom_page_title = 'KK LifeWise - ఆలోచన మార్చు • జీవితం మార్చు | Official Telugu Platform';
+$custom_page_desc = 'వ్యక్తిగత వికాసం, ఆర్థిక వివేకం, కెరీర్ గైడెన్స్, ప్రేరణాత్మక కథలు మరియు ప్రపంచ ప్రసిద్ధ పుస్తకాల తెలుగు సారాంశాల వేదిక.';
+
+$daily_quote = get_daily_quote();
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-16">
-    <!-- ================= 1. HERO SECTION ================= -->
-    <section class="text-center relative py-12 md:py-16 rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl">
-        <div class="absolute inset-0 bg-gradient-to-b from-surface-container-highest/40 via-surface-container/60 to-surface-container-lowest/90 pointer-events-none"></div>
-        <div class="relative z-10 flex flex-col items-center px-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/15 border border-primary/30 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
-                <span class="material-symbols-outlined text-sm">sparkles</span>
-                తెలుగు వ్యక్తిత్వ వికాస వేదిక
+<!-- 1. HERO SECTION -->
+<section class="bg-hero-pattern py-5 border-bottom border-stone-200 position-relative overflow-hidden">
+  <div class="container py-lg-4">
+    <div class="row align-items-center g-5">
+      
+      <!-- Hero Left: Content, Badges & Stats -->
+      <div class="col-lg-7">
+        
+        <!-- Platform Badge -->
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-warning bg-opacity-10 border border-warning border-opacity-30 text-warning-emphasis fw-bold small mb-3">
+          <i class="bi bi-patch-check-fill text-warning"></i>
+          <span>అధికారిక తెలుగు ప్లాట్‌ఫారమ్ • KK Motivation</span>
+        </div>
+
+        <!-- Main Title with Gold Gradient -->
+        <h1 class="hero-heading font-serif-telugu fw-extrabold text-stone-900 mb-3" style="font-size: 3.1rem; line-height: 1.15; font-weight: 800;">
+          ఆలోచన మార్చు<br>
+          <span class="text-gold-gradient">జీవితం మార్చు</span>
+        </h1>
+
+        <!-- Hero Subtitle -->
+        <p class="text-stone-600 fs-5 mb-4 pe-lg-4" style="line-height: 1.6;">
+          వ్యక్తిగత వికాసం, ఆర్థిక వివేకం, కెరీర్ గైడెన్స్, ప్రేరణాత్మక కథలు మరియు ప్రపంచ ప్రసిద్ధ పుస్తకాల తెలుగు సారాంశాల సమగ్ర వేదిక.
+        </p>
+
+        <!-- Call to Actions -->
+        <div class="d-flex flex-wrap align-items-center gap-3 hero-buttons mb-5">
+          <a href="#articlesSection" class="btn btn-gold">
+            <i class="bi bi-book-half"></i> వ్యాసాలు చదవండి
+          </a>
+          <a href="/assessment.php" class="btn btn-gold-outline">
+            <i class="bi bi-compass"></i> జీవన విశ్లేషణ (Assessment)
+          </a>
+          <a href="#youtubeSection" class="btn btn-dark">
+            <i class="bi bi-play-circle text-danger"></i> వీడియోలు
+          </a>
+        </div>
+
+        <!-- Key Trust Stats -->
+        <div class="row g-3 pt-3 border-top border-stone-200">
+          <div class="col-6 col-sm-3 stat-card-item border-end border-stone-200">
+            <div class="fw-extrabold fs-4 text-stone-900 font-sans" style="font-weight: 800;">500K+</div>
+            <div class="text-stone-500 small">యూట్యూబ్ సబ్స్క్రైబర్స్</div>
+          </div>
+          <div class="col-6 col-sm-3 stat-card-item border-end border-stone-200">
+            <div class="fw-extrabold fs-4 text-stone-900 font-sans" style="font-weight: 800;">100+</div>
+            <div class="text-stone-500 small">తెలుగు గైడ్స్ & వ్యాసాలు</div>
+          </div>
+          <div class="col-6 col-sm-3 stat-card-item border-end border-stone-200">
+            <div class="fw-extrabold fs-4 text-stone-900 font-sans" style="font-weight: 800;">50+</div>
+            <div class="text-stone-500 small">పుస్తక సారాంశాలు</div>
+          </div>
+          <div class="col-6 col-sm-3 stat-card-item">
+            <div class="fw-extrabold fs-4 text-warning font-sans" style="font-weight: 800;">4.9 ★</div>
+            <div class="text-stone-500 small">కమ్యూనిటీ రేటింగ్</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hero Right: Interactive Daily Wisdom Card -->
+      <div class="col-lg-5">
+        <div class="wisdom-card p-4 p-md-5">
+          
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <span class="badge badge-pill badge-gold">
+              <i class="bi bi-stars text-warning"></i> నేటి ఆలోచన (Daily Wisdom)
+            </span>
+            <span class="text-stone-500 small font-sans"><?php echo date('d M, Y'); ?></span>
+          </div>
+
+          <blockquote class="fs-5 fw-semibold text-stone-900 mb-4 font-serif-telugu" style="line-height: 1.6;">
+            "<?php echo htmlspecialchars($daily_quote['quote']); ?>"
+          </blockquote>
+
+          <div class="d-flex align-items-center justify-content-between pt-3 border-top border-warning border-opacity-30">
+            <div>
+              <strong class="d-block text-warning-emphasis font-telugu">— <?php echo htmlspecialchars($daily_quote['author']); ?></strong>
+              <small class="text-stone-500"><?php echo htmlspecialchars($daily_quote['category']); ?></small>
+            </div>
+            
+            <div class="d-flex align-items-center gap-2">
+              <button type="button" class="btn btn-sm btn-outline-warning rounded-pill" onclick="openQuoteGeneratorWith('<?php echo addslashes($daily_quote['quote']); ?>', '<?php echo addslashes($daily_quote['author']); ?>')" title="కార్డ్ జనరేట్ చేయండి">
+                <i class="bi bi-card-image"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" onclick="copyQuoteText('<?php echo addslashes($daily_quote['quote']); ?>', '<?php echo addslashes($daily_quote['author']); ?>')" title="కాపీ చేయండి">
+                <i class="bi bi-clipboard"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-success rounded-pill" onclick="shareQuoteWhatsApp('<?php echo addslashes($daily_quote['quote']); ?>', '<?php echo addslashes($daily_quote['author']); ?>')" title="WhatsApp షేర్">
+                <i class="bi bi-whatsapp"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 2. ARTICLES SECTION WITH CATEGORY FILTER -->
+<section id="articlesSection" class="py-5 bg-white border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    
+    <!-- Section Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
+      <div>
+        <div class="badge badge-pill badge-gold mb-2">నాలెడ్జ్ హబ్</div>
+        <h2 class="fw-extrabold text-stone-900 mb-1" style="font-weight: 800;">తాజా వ్యాసాలు & విశ్లేషణలు</h2>
+        <p class="text-stone-500 mb-0">మీ ఆలోచనను, జీవితాన్ని ఉన్నతంగా తీర్చిదిద్దే తాజా గైడ్స్</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs-wrapper">
+        <button type="button" class="filter-tab-btn active" data-category="all">అన్నీ (All)</button>
+        <button type="button" class="filter-tab-btn" data-category="motivation">మోటివేషన్</button>
+        <button type="button" class="filter-tab-btn" data-category="money">మనీ & సంపద</button>
+        <button type="button" class="filter-tab-btn" data-category="career">కెరీర్ & స్కిల్స్</button>
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="row g-4" id="articlesGrid">
+      <?php foreach ($articles as $art): ?>
+        <div class="col-lg-4 col-md-6 article-item-card" data-category="<?php echo $art['category']; ?>">
+          <div class="lw-card">
+            
+            <div class="card-img-wrap">
+              <img src="<?php echo htmlspecialchars($art['image']); ?>" alt="<?php echo htmlspecialchars($art['title']); ?>" loading="lazy">
+              <span class="position-absolute top-0 start-0 m-3 badge bg-stone-900 bg-opacity-90 text-warning px-2.5 py-1 rounded-pill small">
+                <?php echo htmlspecialchars($art['category_name']); ?>
+              </span>
             </div>
 
-            <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-primary mb-3 font-sans tracking-tight drop-shadow-md">
-                KK LifeWise
-            </h1>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <div class="d-flex align-items-center gap-2 text-stone-400 small mb-2">
+                <i class="bi bi-clock"></i> <span><?php echo htmlspecialchars($art['read_time']); ?></span>
+                <span>•</span>
+                <span><?php echo htmlspecialchars($art['date']); ?></span>
+              </div>
 
-            <p class="text-xl sm:text-2xl md:text-3xl text-on-surface-variant font-semibold mb-8 max-w-2xl leading-snug">
-                ఆలోచన మార్చు • జీవితం మార్చు
+              <h4 class="fs-5 fw-bold text-stone-900 mb-2">
+                <a href="/article.php?slug=<?php echo $art['slug']; ?>" class="text-decoration-none text-stone-900 hover-warning">
+                  <?php echo htmlspecialchars($art['title']); ?>
+                </a>
+              </h4>
+
+              <p class="text-stone-600 small flex-grow-1 mb-4" style="line-height: 1.6;">
+                <?php echo htmlspecialchars($art['excerpt']); ?>
+              </p>
+
+              <div class="d-flex align-items-center justify-content-between pt-3 border-top border-stone-100 mt-auto">
+                <button type="button" class="btn btn-sm btn-outline-warning rounded-pill open-article-modal-btn" data-id="<?php echo $art['id']; ?>">
+                  <i class="bi bi-eye"></i> క్విక్ వ్యూ
+                </button>
+                <a href="/article.php?slug=<?php echo $art['slug']; ?>" class="btn btn-sm btn-gold">
+                  చదవండి <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <!-- Section View All Link -->
+    <div class="text-center mt-5">
+      <a href="/motivation.php" class="btn btn-gold-outline px-4">
+        మరిన్ని మోటివేషన్ & నాలెడ్జ్ వ్యాసాలు చూడండి <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. BOOK SUMMARIES SECTION -->
+<section id="booksSection" class="py-5 bg-stone-100 border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    
+    <div class="text-center max-w-2xl mx-auto mb-5">
+      <div class="badge badge-pill badge-gold mb-2">బెస్ట్ సెల్లర్స్ నాలెడ్జ్</div>
+      <h2 class="fw-extrabold text-stone-900 mb-2" style="font-weight: 800;">ప్రపంచ ప్రసిద్ధ పుస్తకాల తెలుగు సారాంశాలు</h2>
+      <p class="text-stone-600">అంతర్జాతీయంగా లక్షలాది మంది జీవితాలను మార్చిన బెస్ట్ సెల్లర్ పుస్తకాల ప్రధాన పాఠాలు సరళమైన తెలుగులో.</p>
+    </div>
+
+    <div class="row g-4">
+      <?php foreach (array_slice($books, 0, 3) as $book): ?>
+        <div class="col-lg-4 col-md-6">
+          <div class="lw-card p-4">
+            
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-4">
+                <div class="book-card-visual">
+                  <img src="<?php echo htmlspecialchars($book['cover_image']); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
+                </div>
+              </div>
+              <div class="col-8">
+                <span class="badge bg-warning bg-opacity-20 text-warning-emphasis rounded-pill small mb-1"><?php echo htmlspecialchars($book['category']); ?></span>
+                <h5 class="fw-bold text-stone-900 mb-1 fs-6"><?php echo htmlspecialchars($book['title']); ?></h5>
+                <p class="text-stone-500 small mb-2">రచయిత: <?php echo htmlspecialchars($book['author']); ?></p>
+                <div class="text-warning small">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <span class="text-muted ms-1 small">(<?php echo $book['rating']; ?>)</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-stone-600 small flex-grow-1 mb-3" style="line-height: 1.5;">
+              <?php echo htmlspecialchars($book['description']); ?>
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-3.5 w-full sm:w-auto max-w-md justify-center">
-                <a href="<?= base_url('motivation.php') ?>" class="btn-gold py-3.5 px-7 rounded-xl text-center text-decoration-none text-sm sm:text-base font-bold shadow-lg">
-                    వ్యాసాలు చదవండి
-                </a>
-                <a href="<?= base_url('assessment.php') ?>" class="btn-outline-gold py-3.5 px-7 rounded-xl text-center text-decoration-none text-sm sm:text-base font-bold">
-                    జీవన విశ్లేషణ
-                </a>
-                <a href="<?= base_url('videos.php') ?>" class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface hover:text-primary border border-white/10 py-3.5 px-7 rounded-xl text-center text-decoration-none text-sm sm:text-base font-bold transition-all">
-                    వీడియోలు
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================= 2. DAILY WISDOM CARD ("నేటి ఆలోచన") ================= -->
-    <section class="relative">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl sm:text-2xl font-bold text-primary flex items-center gap-2">
-                <span class="material-symbols-outlined text-tertiary">wb_sunny</span>
-                నేటి ఆలోచన (Daily Wisdom)
-            </h2>
-            <button type="button" id="refresh-daily-quote" class="text-xs text-primary hover:underline flex items-center gap-1">
-                <span class="material-symbols-outlined text-sm">refresh</span>
-                మరో ఆలోచన
-            </button>
-        </div>
-
-        <div class="bg-surface-container rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-white/10 shadow-xl gold-glow">
-            <div class="absolute -top-6 -right-6 text-9xl text-primary opacity-5 font-serif select-none pointer-events-none">“</div>
-            <div class="relative z-10">
-                <p id="hero-quote-text" class="text-lg sm:text-2xl text-on-surface font-medium leading-relaxed mb-6">
-                    "<?= htmlspecialchars($daily_quote['quote']) ?>"
-                </p>
-                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pt-4 border-t border-white/5">
-                    <div>
-                        <span class="block text-primary font-bold text-xs tracking-widest uppercase font-sans">AFFIRMATION (ఆత్మోపదేశం)</span>
-                        <span id="hero-affirm-text" class="text-on-surface-variant text-sm sm:text-base mt-1 block">
-                            <?= htmlspecialchars($daily_quote['affirmation']) ?>
-                        </span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button type="button" class="share-quote-btn text-on-surface-variant hover:text-primary transition-colors bg-surface-container-high p-3 rounded-full border border-white/5 hover:border-primary/30 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-xl">share</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================= 3. LATEST CONTENT & TRENDING ARTICLES ================= -->
-    <section>
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <h2 class="text-xl sm:text-2xl font-bold text-on-surface font-sans">తాజా వ్యాసాలు (Latest Content)</h2>
-                <p class="text-xs sm:text-sm text-on-surface-variant">జీవితాన్ని ఉన్నతంగా మార్చే తాజా మార్గదర్శకాలు</p>
-            </div>
-            <a href="<?= base_url('motivation.php') ?>" class="text-xs sm:text-sm font-bold text-primary hover:underline flex items-center gap-1">
-                అన్నీ చూడండి <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <?php foreach ($latest_articles as $art): ?>
-                <article class="bg-surface-container rounded-2xl overflow-hidden border border-white/10 shadow-lg gold-glow flex flex-col">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="<?= htmlspecialchars($art['image']) ?>" alt="<?= htmlspecialchars($art['title']) ?>" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
-                        <div class="absolute top-3 left-3 bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold text-primary font-sans border border-white/10">
-                            <?= htmlspecialchars($art['category_name']) ?>
-                        </div>
-                        <div class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded text-[11px] text-white">
-                            <?= htmlspecialchars($art['read_time']) ?>
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-lg font-bold text-on-surface hover:text-primary transition-colors mb-2 line-clamp-2">
-                                <a href="<?= base_url('article.php?slug=' . $art['slug']) ?>" class="text-decoration-none text-on-surface hover:text-primary">
-                                    <?= htmlspecialchars($art['title']) ?>
-                                </a>
-                            </h3>
-                            <p class="text-sm text-on-surface-variant line-clamp-3 mb-4 leading-relaxed">
-                                <?= htmlspecialchars($art['excerpt']) ?>
-                            </p>
-                        </div>
-                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                            <span class="text-xs text-on-surface-variant font-sans"><?= htmlspecialchars($art['date']) ?></span>
-                            <a href="<?= base_url('article.php?slug=' . $art['slug']) ?>" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-                                చదవండి <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- ================= 4. FEATURED YOUTUBE SHOWCASE ================= -->
-    <section class="bg-gradient-to-r from-surface-container-high to-surface-container rounded-3xl p-6 sm:p-10 border border-red-500/20 shadow-2xl relative overflow-hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div class="lg:col-span-6 space-y-4">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/20 text-red-400 border border-red-500/30 text-xs font-bold font-sans uppercase">
-                    <span class="material-symbols-outlined text-sm">smart_display</span>
-                    Featured Video • KK Motivation Telugu
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface leading-snug">
-                    <?= htmlspecialchars($featured_video['title']) ?>
-                </h2>
-                <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
-                    <?= htmlspecialchars($featured_video['summary']) ?>
-                </p>
-
-                <div class="space-y-2 pt-2">
-                    <?php foreach (array_slice($featured_video['key_takeaways'], 0, 3) as $point): ?>
-                        <div class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant">
-                            <span class="material-symbols-outlined text-primary text-base shrink-0">check_circle</span>
-                            <span><?= htmlspecialchars($point) ?></span>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <div class="flex flex-wrap items-center gap-4 pt-4">
-                    <a href="<?= htmlspecialchars($featured_video['url']) ?>" target="_blank" rel="noopener noreferrer" class="btn-gold px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg">
-                        <span class="material-symbols-outlined text-lg">play_arrow</span>
-                        యూట్యూబ్‌లో చూడండి
-                    </a>
-                    <a href="<?= base_url('videos.php') ?>" class="btn-outline-gold px-5 py-3 rounded-xl font-bold text-sm">
-                        మరిన్ని వీడియోలు
-                    </a>
-                </div>
+            <div class="d-flex align-items-center justify-content-between pt-3 border-top border-stone-100">
+              <button type="button" class="btn btn-sm btn-outline-warning rounded-pill open-book-modal-btn" data-id="<?php echo $book['id']; ?>">
+                <i class="bi bi-journal-text"></i> క్విక్ సారాంశం
+              </button>
+              <a href="/book-detail.php?slug=<?php echo $book['slug']; ?>" class="btn btn-sm btn-gold">
+                పూర్తి సారాంశం <i class="bi bi-arrow-right"></i>
+              </a>
             </div>
 
-            <div class="lg:col-span-6">
-                <div class="aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black">
-                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/<?= htmlspecialchars($featured_video['youtube_id']) ?>?rel=0" title="<?= htmlspecialchars($featured_video['title']) ?>" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="/books.php" class="btn btn-gold-outline px-4">
+        అన్ని 50+ పుస్తక సారాంశాలు అన్వేషించండి <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 4. YOUTUBE HUB SECTION (DARK STONE WITH GOLD ACCENTS) -->
+<section id="youtubeSection" class="py-5 bg-dark-mesh text-white border-bottom border-stone-800">
+  <div class="container py-lg-4">
+    
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3">
+      <div>
+        <div class="badge badge-pill badge-dark mb-2">
+          <i class="bi bi-youtube text-danger"></i> వీడియో హబ్
+        </div>
+        <h2 class="fw-extrabold text-white mb-1" style="font-weight: 800;">KK Motivation Telugu - వీడియోలు</h2>
+        <p class="text-stone-400 mb-0">యూట్యూబ్‌లో 500,000+ సబ్స్క్రైబర్స్ వీక్షిస్తున్న స్ఫూర్తిదాయక వీడియోలు</p>
+      </div>
+
+      <div>
+        <a href="<?php echo YOUTUBE_CHANNEL_URL; ?>" target="_blank" rel="noopener" class="btn btn-danger rounded-pill px-4 fw-bold d-inline-flex align-items-center gap-2">
+          <i class="bi bi-youtube"></i> ఛానెల్ సబ్‌స్క్రైబ్ చేయండి
+        </a>
+      </div>
+    </div>
+
+    <!-- Featured Video: Sri Krishna 6 Vijaya Rahasyalu -->
+    <div class="row g-4 align-items-center mb-5 p-4 rounded-4 bg-stone-900 border border-stone-800 shadow-lg">
+      <div class="col-lg-7">
+        <div class="video-thumbnail-container shadow">
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=1000&auto=format&fit=crop&q=80" class="w-100 h-100 object-fit-cover" alt="శ్రీకృష్ణుని 6 విజయ రహస్యాలు">
+          <button type="button" class="play-overlay-btn" onclick="openVideoModal('QXhd_yW2VEE', 'శ్రీకృష్ణుని 6 విజయ రహస్యాలు | తెలిస్తే జీవితం మారుతుంది!')" title="వీడియో ప్లే చేయండి">
+            <i class="bi bi-play-fill"></i>
+          </button>
+          <span class="video-duration-badge">14:20</span>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <span class="badge bg-danger px-3 py-1 rounded-pill small mb-2">🔥 అత్యధికంగా వీక్షించిన వీడియో</span>
+        <h3 class="fw-bold text-white mb-3 fs-4">శ్రీకృష్ణుని 6 విజయ రహస్యాలు | తెలిస్తే జీవితం మారుతుంది!</h3>
+        <p class="text-stone-300 small mb-4" style="line-height: 1.6;">
+          భగవద్గీత మరియు మహాభారతం నుండి శ్రీకృష్ణుడు అందించిన 6 అద్భుతమైన జీవిత సూత్రాలు. వీటిని జీవితంలో ఆచరిస్తే ఎలాంటి సంక్షోభాలనైనా దాటి విజేతగా నిలవవచ్చు.
+        </p>
+        <div class="d-flex gap-3">
+          <button type="button" class="btn btn-gold flex-grow-1" onclick="openVideoModal('QXhd_yW2VEE', 'శ్రీకృష్ణుని 6 విజయ రహస్యాలు | తెలిస్తే జీవితం మారుతుంది!')">
+            <i class="bi bi-play-circle"></i> ఇప్పుడే చూడండి
+          </button>
+          <a href="<?php echo YOUTUBE_CHANNEL_URL; ?>" target="_blank" rel="noopener" class="btn btn-outline-light">
+            <i class="bi bi-youtube text-danger"></i> YouTube లో
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Grid -->
+    <div class="row g-4">
+      <?php foreach (array_slice($videos, 1, 3) as $vid): ?>
+        <div class="col-lg-4 col-md-6">
+          <div class="lw-card-dark p-3 h-100 d-flex flex-column">
+            <div class="video-thumbnail-container mb-3">
+              <img src="<?php echo htmlspecialchars($vid['thumbnail']); ?>" alt="<?php echo htmlspecialchars($vid['title']); ?>">
+              <button type="button" class="play-overlay-btn" onclick="openVideoModal('<?php echo $vid['youtube_id']; ?>', '<?php echo addslashes($vid['title']); ?>')">
+                <i class="bi bi-play-fill"></i>
+              </button>
+              <span class="video-duration-badge"><?php echo htmlspecialchars($vid['duration']); ?></span>
             </div>
-        </div>
-    </section>
-
-    <!-- ================= 5. MOTIVATION, MONEY & CAREER PILLARS ================= -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Motivation Pillar -->
-        <div class="bg-surface-container rounded-2xl p-6 border border-amber-500/20 shadow-lg gold-glow flex flex-col justify-between">
-            <div>
-                <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
-                    <span class="material-symbols-outlined text-2xl">bolt</span>
-                </div>
-                <h3 class="text-xl font-bold text-on-surface mb-2">Motivation (ప్రేరణ)</h3>
-                <p class="text-sm text-on-surface-variant leading-relaxed mb-4">
-                    ఆలోచనా విధానాన్ని (Mindset) మార్చుకోండి. బద్ధకాన్ని, ఓవర్‌థింకింగ్‌ను అధిగమించి లక్ష్యాల వైపు అడుగులు వేయండి.
-                </p>
+            <h5 class="fw-bold text-white fs-6 mb-2 flex-grow-1"><?php echo htmlspecialchars($vid['title']); ?></h5>
+            <div class="d-flex align-items-center justify-content-between text-stone-400 small pt-2 border-top border-stone-800 mt-auto">
+              <span><i class="bi bi-eye"></i> <?php echo htmlspecialchars($vid['views']); ?></span>
+              <button type="button" class="btn btn-sm btn-link text-warning p-0 text-decoration-none" onclick="openVideoModal('<?php echo $vid['youtube_id']; ?>', '<?php echo addslashes($vid['title']); ?>')">
+                ప్లే చేయండి <i class="bi bi-chevron-right"></i>
+              </button>
             </div>
-            <a href="<?= base_url('motivation.php') ?>" class="text-sm font-bold text-amber-400 hover:underline flex items-center gap-1">
-                వ్యాసాలు చూడండి <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
+          </div>
         </div>
+      <?php endforeach; ?>
+    </div>
 
-        <!-- Money Pillar -->
-        <div class="bg-surface-container rounded-2xl p-6 border border-emerald-500/20 shadow-lg gold-glow flex flex-col justify-between">
-            <div>
-                <div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
-                    <span class="material-symbols-outlined text-2xl">payments</span>
-                </div>
-                <h3 class="text-xl font-bold text-on-surface mb-2">Money (ఆర్థిక వివేకం)</h3>
-                <p class="text-sm text-on-surface-variant leading-relaxed mb-4">
-                    డబ్బును కేవలం సంపాదించడం మాత్రమే కాదు; 50-30-20 బడ్జెట్, SIP, ఇన్వెస్ట్‌మెంట్‌లతో సంపదను సృష్టించడం నేర్చుకోండి.
-                </p>
+    <div class="text-center mt-5">
+      <a href="/videos.php" class="btn btn-gold-outline px-4">
+        అన్ని వీడియోలు చూడండి <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5. 6-PILLAR LIFE ASSESSMENT PREVIEW -->
+<section id="assessmentSection" class="py-5 bg-white border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    <div class="row g-5 align-items-center">
+      
+      <div class="col-lg-6">
+        <div class="badge badge-pill badge-gold mb-2">స్వీయ పరిశీలన సాధనం</div>
+        <h2 class="fw-extrabold text-stone-900 mb-3" style="font-weight: 800;">మీ జీవన సమతుల్యతను విశ్లేషించుకోండి</h2>
+        <p class="text-stone-600 mb-4" style="line-height: 1.6;">
+          విజయం కేవలం డబ్బు లేదా ఉద్యోగంతో మాత్రమే కొలవబడదు. మైండ్‌సెట్, ఆర్థిక ఆరోగ్యం, కెరీర్ ఎదుగుదల, క్రమశిక్షణ మరియు సంబంధాలు — ఈ 6 స్తంభాలలో మీ బలం ఎక్కడుందో తక్షణమే తెలుసుకోండి.
+        </p>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6">
+            <div class="p-3 rounded-3 bg-stone-50 border">
+              <strong class="d-block text-stone-900 mb-1"><i class="bi bi-lightning-charge text-warning me-1"></i> 6 ముఖ్య స్తంభాలు</strong>
+              <small class="text-stone-500">సమగ్ర జీవిత విశ్లేషణ</small>
             </div>
-            <a href="<?= base_url('money.php') ?>" class="text-sm font-bold text-emerald-400 hover:underline flex items-center gap-1">
-                ఆర్థిక పాఠాలు <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-        </div>
-
-        <!-- Career Pillar -->
-        <div class="bg-surface-container rounded-2xl p-6 border border-blue-500/20 shadow-lg gold-glow flex flex-col justify-between">
-            <div>
-                <div class="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4">
-                    <span class="material-symbols-outlined text-2xl">work</span>
-                </div>
-                <h3 class="text-xl font-bold text-on-surface mb-2">Career (కెరీర్ & స్కిల్స్)</h3>
-                <p class="text-sm text-on-surface-variant leading-relaxed mb-4">
-                    హై-ఇన్‌కమ్ స్కిల్స్, ఇంటర్వ్యూలలో విజయం, కమ్యూనికేషన్ పవర్ మరియు నాయకత్వ లక్షణాలను అలవర్చుకోండి.
-                </p>
+          </div>
+          <div class="col-6">
+            <div class="p-3 rounded-3 bg-stone-50 border">
+              <strong class="d-block text-stone-900 mb-1"><i class="bi bi-graph-up-arrow text-success me-1"></i> తక్షణ స్కోరు</strong>
+              <small class="text-stone-500">కస్టమ్ తెలుగు యాక్షన్ ప్లాన్</small>
             </div>
-            <a href="<?= base_url('career.php') ?>" class="text-sm font-bold text-blue-400 hover:underline flex items-center gap-1">
-                కెరీర్ గైడెన్స్ <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
+          </div>
         </div>
-    </section>
 
-    <!-- ================= 6. TELUGU STORIES SHOWCASE ================= -->
-    <section>
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <h2 class="text-xl sm:text-2xl font-bold text-on-surface font-sans">స్ఫూర్తి కథలు (Inspiring Stories)</h2>
-                <p class="text-xs sm:text-sm text-on-surface-variant">జీవిత సత్యాలను తెలిపే నీతి మరియు ప్రేరణాత్మక కథనాలు</p>
+        <a href="/assessment.php" class="btn btn-gold btn-lg">
+          <i class="bi bi-compass"></i> పూర్తి అసెస్‌మెంట్ ప్రారంభించండి
+        </a>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="p-4 p-md-5 rounded-4 bg-stone-50 border border-stone-200 shadow-sm">
+          <div class="text-center mb-4">
+            <div class="score-circle-lg mb-3">
+              <span id="assessmentScorePercent" class="display-6 fw-bold">75%</span>
+              <small class="text-uppercase small fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">ఓవర్‌ఆల్ స్కోరు</small>
             </div>
-            <a href="<?= base_url('stories.php') ?>" class="text-xs sm:text-sm font-bold text-primary hover:underline flex items-center gap-1">
-                అన్ని కథలు <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <?php foreach ($featured_stories as $st): ?>
-                <div class="bg-surface-container rounded-2xl p-6 border border-white/10 shadow-lg gold-glow flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-1 rounded-full bg-yellow-500/20 text-yellow-300 text-xs font-bold">
-                                <?= count($st['episodes']) ?> Episodes
-                            </span>
-                            <span class="text-xs text-on-surface-variant"><?= htmlspecialchars($st['read_time']) ?></span>
-                        </div>
-                        <h3 class="text-lg sm:text-xl font-bold text-on-surface mb-2">
-                            <a href="<?= base_url('story-detail.php?slug=' . $st['slug']) ?>" class="text-on-surface hover:text-primary text-decoration-none">
-                                <?= htmlspecialchars($st['title']) ?>
-                            </a>
-                        </h3>
-                        <p class="text-sm text-on-surface-variant italic mb-4">
-                            "<?= htmlspecialchars($st['moral']) ?>"
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-xs text-on-surface-variant"><?= htmlspecialchars($st['author']) ?></span>
-                        <a href="<?= base_url('story-detail.php?slug=' . $st['slug']) ?>" class="btn-outline-gold px-4 py-1.5 rounded-lg text-xs font-bold">
-                            కథ చదవండి
-                        </a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- ================= 7. BOOKS SUMMARIES SHOWCASE ================= -->
-    <section>
-        <div class="flex items-center justify-between mb-6">
-            <div>
-                <h2 class="text-xl sm:text-2xl font-bold text-on-surface font-sans">పుస్తకాల సారాంశం (Book Summaries)</h2>
-                <p class="text-xs sm:text-sm text-on-surface-variant">ప్రపంచ ప్రసిద్ధ గ్రంథాల ముఖ్య సూత్రాలు తెలుగులో</p>
+            <div id="assessmentTierBadge" class="badge bg-warning text-dark px-3 py-1.5 rounded-pill fs-6">
+              🚀 సాధకుడు (High Achiever)
             </div>
-            <a href="<?= base_url('books.php') ?>" class="text-xs sm:text-sm font-bold text-primary hover:underline flex items-center gap-1">
-                మరిన్ని పుస్తకాలు <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-        </div>
+          </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <?php foreach ($featured_books as $bk): ?>
-                <div class="bg-surface-container rounded-2xl p-6 border border-white/10 shadow-lg gold-glow flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="px-2.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-xs font-semibold">
-                                <?= htmlspecialchars($bk['category_name']) ?>
-                            </span>
-                            <span class="text-xs text-amber-400 flex items-center gap-1">
-                                <span class="material-symbols-outlined text-sm fill">star</span> <?= $bk['rating'] ?>
-                            </span>
-                        </div>
-                        <h3 class="text-base sm:text-lg font-bold text-on-surface mb-1">
-                            <a href="<?= base_url('book-detail.php?slug=' . $bk['slug']) ?>" class="text-on-surface hover:text-primary text-decoration-none">
-                                <?= htmlspecialchars($bk['title']) ?>
-                            </a>
-                        </h3>
-                        <p class="text-xs text-primary mb-3"><?= htmlspecialchars($bk['author']) ?></p>
-                        <p class="text-xs text-on-surface-variant line-clamp-3 leading-relaxed mb-4">
-                            <?= htmlspecialchars($bk['tagline']) ?>
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-[11px] text-on-surface-variant"><?= htmlspecialchars($bk['read_time']) ?></span>
-                        <a href="<?= base_url('book-detail.php?slug=' . $bk['slug']) ?>" class="text-xs font-bold text-primary hover:underline">
-                            సారాంశం చూడండి →
-                        </a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- ================= 8. FREE PDF RESOURCES ================= -->
-    <section class="bg-surface-container-high/60 rounded-3xl p-6 sm:p-10 border border-white/10 shadow-xl">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
-            <div>
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase mb-2">
-                    <span class="material-symbols-outlined text-sm">download</span>
-                    Free Telugu E-Books & Workbooks
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface font-sans">ఉచిత పి.డి.ఎఫ్ వనరులు (Free PDFs)</h2>
-            </div>
-            <a href="<?= base_url('pdfs.php') ?>" class="btn-gold px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold">
-                అన్ని డౌన్‌లోడ్స్ చూడండి
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <?php foreach ($featured_pdfs as $pdf): ?>
-                <div class="bg-surface-container rounded-2xl p-5 border border-white/5 hover:border-purple-500/40 transition-all flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between text-xs text-on-surface-variant mb-2">
-                            <span><?= htmlspecialchars($pdf['file_size']) ?> • <?= htmlspecialchars($pdf['format']) ?></span>
-                            <span class="text-purple-400 font-semibold"><?= htmlspecialchars($pdf['downloads']) ?></span>
-                        </div>
-                        <h3 class="text-base font-bold text-on-surface mb-2">
-                            <a href="<?= base_url('pdf-detail.php?slug=' . $pdf['slug']) ?>" class="text-on-surface hover:text-primary text-decoration-none">
-                                <?= htmlspecialchars($pdf['title']) ?>
-                            </a>
-                        </h3>
-                        <p class="text-xs text-on-surface-variant line-clamp-2 mb-4">
-                            <?= htmlspecialchars($pdf['description']) ?>
-                        </p>
-                    </div>
-                    <a href="<?= base_url('pdf-detail.php?slug=' . $pdf['slug']) ?>" class="w-full py-2.5 rounded-xl bg-surface-container-highest hover:bg-purple-600/30 text-purple-300 hover:text-purple-100 border border-purple-500/30 text-xs font-bold text-center flex items-center justify-center gap-1.5 transition-all text-decoration-none">
-                        <span class="material-symbols-outlined text-base">download</span>
-                        ఉచితంగా పొందండి
-                    </a>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- ================= 9. LIFE ASSESSMENT PROMO ("జీవన విశ్లేషణ") ================= -->
-    <section class="bg-gradient-to-br from-primary-container/20 via-surface-container to-surface-container-lowest rounded-3xl p-8 sm:p-12 border border-primary/40 shadow-2xl text-center relative overflow-hidden">
-        <div class="max-w-2xl mx-auto space-y-5 relative z-10">
-            <div class="w-16 h-16 rounded-2xl bg-primary-container/30 border border-primary/50 text-primary flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(212,175,55,0.3)]">
-                <span class="material-symbols-outlined text-3xl">psychology</span>
-            </div>
-
-            <h2 class="text-2xl sm:text-4xl font-extrabold text-primary font-sans">
-                జీవన విశ్లేషణ (Life Assessment Test)
-            </h2>
-
-            <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
-                మీ మైండ్‌సెట్, ఆర్థిక క్రమశిక్షణ, కెరీర్ ఎదుగుదల మరియు అలవాట్లను కేవలం 2 నిమిషాల్లో విశ్లేషించుకోండి. మీ స్థాయిని తెలుసుకుని సరైన ప్రణాళికను రూపొందించుకోండి.
+          <div class="p-3 rounded-3 bg-white border mb-3">
+            <h6 id="assessmentFeedbackHeading" class="fw-bold text-stone-900 mb-1">మంచి పునాది ఉంది!</h6>
+            <p id="assessmentFeedbackDesc" class="text-stone-600 small mb-0">
+              మీరు చాలా రంగాలలో బాగున్నారు. మీ సమతుల్యతను మరింత పెంచుకోవడానికి మా గైడ్స్ మీకు తోడ్పడతాయి.
             </p>
+          </div>
 
-            <div class="pt-2">
-                <a href="<?= base_url('assessment.php') ?>" class="btn-gold py-4 px-8 rounded-xl font-bold text-base shadow-xl inline-flex items-center gap-2">
-                    <span class="material-symbols-outlined">analytics</span>
-                    ఇప్పుడే విశ్లేషణ ప్రారంభించండి (Start Assessment)
-                </a>
-            </div>
+          <div class="text-center">
+            <a href="/assessment.php" class="btn btn-sm btn-outline-dark rounded-pill">
+              ఇంటరాక్టివ్ స్లైడర్లతో చెక్ చేయండి <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- ================= 10. INSTAGRAM & COMMUNITY CTA ================= -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Instagram Card -->
-        <div class="bg-surface-container rounded-3xl p-8 border border-pink-500/20 shadow-xl flex flex-col justify-between">
-            <div class="space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-pink-600/20 border border-pink-500/30 text-pink-400 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-2xl">photo_camera</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-on-surface font-sans">Instagram Hub</h3>
-                        <p class="text-xs text-pink-400 font-semibold">@kkmotivationhub</p>
-                    </div>
-                </div>
-                <p class="text-sm text-on-surface-variant leading-relaxed">
-                    రోజూ మోటివేషనల్ రీల్స్, శక్తివంతమైన కొటేషన్లు మరియు ఆలోచనాత్మక సూత్రాలను పొందడానికి ఇన్‌స్టాగ్రామ్‌లో KK LifeWise కమ్యూనిటీలో చేరండి.
-                </p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. ABOUT SECTION -->
+<section id="aboutSection" class="py-5 bg-stone-50 border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    <div class="row g-5 align-items-center">
+      
+      <div class="col-lg-6">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80" class="img-fluid rounded-4 shadow-lg" alt="KK LifeWise About">
+          <div class="position-absolute bottom-0 start-0 m-4 p-3 rounded-3 glass-panel shadow">
+            <span class="fw-bold text-warning-emphasis d-block">✨ ఆలోచన మార్చు • జీవితం మార్చు</span>
+            <small class="text-stone-600">KK Motivation Telugu Official Initiative</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="badge badge-pill badge-gold mb-2">మా గురించి & విజన్</div>
+        <h2 class="fw-extrabold text-stone-900 mb-3" style="font-weight: 800;">తెలుగు ఆలోచనా విధానంలో సరికొత్త విప్లవం</h2>
+        <p class="text-stone-700 mb-4" style="line-height: 1.7;">
+          <strong>KK LifeWise</strong> అనేది కేవలం ఒక వెబ్‌సైట్ కాదు; లక్షలాది మంది తెలుగు వారి జీవితాల్లో సానుకూల మార్పు తీసుకురావడానికి రూపొందించబడిన సమగ్ర జ్ఞాన వేదిక.
+        </p>
+
+        <div class="d-flex flex-column gap-3 mb-4">
+          <div class="d-flex gap-3">
+            <i class="bi bi-check-circle-fill text-warning fs-5 flex-shrink-0"></i>
+            <div>
+              <strong class="text-stone-900">విలువలతో కూడిన విజయం:</strong>
+              <p class="text-stone-600 small mb-0">తాత్కాలిక ఉత్సాహం కాకుండా శాశ్వత వ్యక్తిత్వ వికాసం.</p>
             </div>
-            <div class="pt-6">
-                <a href="https://www.instagram.com/kkmotivationhub/" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold text-sm text-center flex items-center justify-center gap-2 shadow-lg transition-all text-decoration-none">
-                    <span class="material-symbols-outlined">group_add</span>
-                    Follow @kkmotivationhub on Instagram
-                </a>
+          </div>
+          <div class="d-flex gap-3">
+            <i class="bi bi-check-circle-fill text-warning fs-5 flex-shrink-0"></i>
+            <div>
+              <strong class="text-stone-900">ఆచరణాత్మక ఆర్థిక వివేకం:</strong>
+              <p class="text-stone-600 small mb-0">సామాన్యుడు సైతం సంపదను సృష్టించే సరళమైన నియమాలు.</p>
             </div>
+          </div>
+          <div class="d-flex gap-3">
+            <i class="bi bi-check-circle-fill text-warning fs-5 flex-shrink-0"></i>
+            <div>
+              <strong class="text-stone-900">ప్రపంచ స్థాయి పుస్తక జ్ఞానం:</strong>
+              <p class="text-stone-600 small mb-0">అంతర్జాతీయ రచయితల అత్యుత్తమ సూత్రాలు సులభమైన తెలుగులో.</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Community & YouTube Card -->
-        <div class="bg-surface-container rounded-3xl p-8 border border-red-500/20 shadow-xl flex flex-col justify-between">
-            <div class="space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-red-600/20 border border-red-500/30 text-red-400 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-2xl">smart_display</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-on-surface font-sans">YouTube Community</h3>
-                        <p class="text-xs text-red-400 font-semibold">@KKMotivationTelugu</p>
-                    </div>
-                </div>
-                <p class="text-sm text-on-surface-variant leading-relaxed">
-                    వారానికి 2 కొత్త వీడియోలు: భగవద్గీత పాఠాలు, సంపద సృష్టి సూత్రాలు, మరియు స్ఫూర్తి కథనాల కోసం మన ఛానెల్‌ని సబ్‌స్క్రైబ్ చేసుకోండి.
-                </p>
-            </div>
-            <div class="pt-6">
-                <a href="https://www.youtube.com/@KKMotivationTelugu?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-sm text-center flex items-center justify-center gap-2 shadow-lg transition-all text-decoration-none">
-                    <span class="material-symbols-outlined">subscriptions</span>
-                    Subscribe @KKMotivationTelugu
-                </a>
-            </div>
-        </div>
-    </section>
-</main>
+        <a href="/about.php" class="btn btn-gold">
+          మా పూర్తి ప్రయాణం తెలుసుకోండి <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
 
-<?php require_once __DIR__ . '/footer.php'; ?>
+    </div>
+  </div>
+</section>
+
+<!-- 7. COMMUNITY & TELEGRAM / WHATSAPP SECTION -->
+<section class="py-5 bg-gold-gradient text-white">
+  <div class="container py-lg-3 text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="fw-extrabold text-white mb-3" style="font-weight: 800;">మా కమ్యూనిటీలో చేరండి</h2>
+      <p class="fs-5 text-white text-opacity-90 mb-4">
+        ప్రతిరోజూ ఉదయం సానుకూల ఆలోచనలు, పుస్తక సారాంశాలు మరియు వీడియో నోటిఫికేషన్‌లు తక్షణమే పొందండి.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="<?php echo YOUTUBE_CHANNEL_URL; ?>" target="_blank" rel="noopener" class="btn btn-dark rounded-pill px-4 py-2 fw-bold">
+          <i class="bi bi-youtube text-danger me-1"></i> YouTube ఛానెల్
+        </a>
+        <a href="<?php echo INSTAGRAM_PROFILE_URL; ?>" target="_blank" rel="noopener" class="btn btn-light rounded-pill px-4 py-2 fw-bold text-dark">
+          <i class="bi bi-instagram text-danger me-1"></i> Instagram లో ఫాలో అవ్వండి
+        </a>
+        <a href="https://t.me/kkmotivation" target="_blank" rel="noopener" class="btn btn-dark rounded-pill px-4 py-2 fw-bold">
+          <i class="bi bi-telegram text-info me-1"></i> Telegram ఛానెల్
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<?php include __DIR__ . '/footer.php'; ?>

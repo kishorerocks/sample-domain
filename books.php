@@ -1,75 +1,75 @@
 <?php
-// books.php - KK LifeWise Book Summaries & Guides
-$page_title = 'Books (పుస్తకాల సారాంశం) - KK LifeWise | ఆలోచన మార్చు • జీవితం మార్చు';
-$page_description = 'Telugu summaries of world famous personal development and finance books: Atomic Habits, Psychology of Money, Think and Grow Rich and Bhagavad Gita.';
-$active_page = 'books';
+// books.php - Book Summaries Page
+require_once __DIR__ . '/functions.php';
 
-require_once __DIR__ . '/header.php';
-$all_books = get_books();
+$custom_page_title = 'ప్రపంచ ప్రసిద్ధ పుస్తకాల తెలుగు సారాంశాలు | KK LifeWise';
+$custom_page_desc = 'అంతర్జాతీయంగా అత్యధికంగా అమ్ముడైన బెస్ట్ సెల్లర్ పుస్తకాల ముఖ్య పాఠాలు సరళమైన తెలుగులో.';
+
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-12">
-    <!-- Header Banner -->
-    <div class="relative py-12 px-6 sm:px-10 rounded-3xl overflow-hidden glass-panel border border-indigo-500/20 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold uppercase mb-3">
-            <span class="material-symbols-outlined text-sm">menu_book</span>
-            Life-Changing Book Summaries in Telugu
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-primary font-sans mb-3">
-            Books (పుస్తకాల సారాంశం)
-        </h1>
-        <p class="text-base sm:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            ప్రపంచ ప్రఖ్యాత రచయితల అద్భుతమైన గ్రంథాలలోని కీలక సూత్రాలను సులభమైన తెలుగులో చదవండి మరియు మీ జీవితంలో అమలు చేయండి.
-        </p>
+<div class="bg-hero-pattern py-5 border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    <div class="max-w-3xl">
+      <div class="badge badge-pill badge-gold mb-2">
+        <i class="bi bi-book-half text-warning"></i> బెస్ట్ సెల్లర్స్ లైబ్రరీ
+      </div>
+      <h1 class="hero-heading font-serif-telugu fw-bold text-stone-900 mb-3" style="font-size: 2.8rem;">
+        పుస్తక సారాంశాలు (Book Summaries)
+      </h1>
+      <p class="text-stone-600 fs-5 mb-0" style="line-height: 1.6;">
+        వందలాది పేజీల పుస్తకాలను చదవడానికి సమయం లేదా? ప్రపంచ ప్రఖ్యాత పుస్తకాలలోని అత్యంత శక్తివంతమైన 4-5 సూత్రాలను 5 నిమిషాల్లో సులభమైన తెలుగులో తెలుసుకోండి.
+      </p>
     </div>
+  </div>
+</div>
 
-    <!-- Books Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <?php foreach ($all_books as $bk): ?>
-            <div class="bg-surface-container rounded-3xl p-6 sm:p-8 border border-white/10 shadow-xl gold-glow flex flex-col justify-between">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold">
-                            <?= htmlspecialchars($bk['category_name']) ?>
-                        </span>
-                        <div class="flex items-center gap-1 text-amber-400 text-xs font-bold font-sans">
-                            <span class="material-symbols-outlined text-base fill">star</span>
-                            <?= $bk['rating'] ?> (5.0)
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-6 items-start">
-                        <img src="<?= htmlspecialchars($bk['cover']) ?>" alt="<?= htmlspecialchars($bk['title']) ?>" class="w-full sm:w-36 h-48 object-cover rounded-xl shadow-md border border-white/10 shrink-0">
-                        <div class="space-y-2">
-                            <h2 class="text-xl font-bold text-on-surface hover:text-primary transition-colors">
-                                <a href="<?= base_url('book-detail.php?slug=' . $bk['slug']) ?>" class="text-on-surface hover:text-primary text-decoration-none">
-                                    <?= htmlspecialchars($bk['title']) ?>
-                                </a>
-                            </h2>
-                            <p class="text-xs text-primary font-semibold"><?= htmlspecialchars($bk['author']) ?></p>
-                            <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed line-clamp-3">
-                                <?= htmlspecialchars($bk['tagline']) ?>
-                            </p>
-                            <div class="flex items-center gap-3 text-[11px] text-on-surface-variant pt-2 font-sans">
-                                <span><?= htmlspecialchars($bk['pages']) ?></span>
-                                <span>•</span>
-                                <span><?= htmlspecialchars($bk['read_time']) ?></span>
-                            </div>
-                        </div>
-                    </div>
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-4">
+      <?php foreach ($books as $book): ?>
+        <div class="col-lg-4 col-md-6">
+          <div class="lw-card p-4">
+            
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-4">
+                <div class="book-card-visual">
+                  <img src="<?php echo htmlspecialchars($book['cover_image']); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
                 </div>
-
-                <div class="pt-6 mt-4 border-t border-white/5 flex items-center justify-between gap-4">
-                    <a href="<?= base_url('book-detail.php?slug=' . $bk['slug']) ?>" class="btn-gold flex-1 py-2.5 rounded-xl text-xs font-bold text-center text-decoration-none">
-                        పూర్తి సారాంశం చదవండి
-                    </a>
-                    <a href="<?= base_url('book-detail.php?slug=' . $bk['slug']) ?>" class="btn-outline-gold p-2.5 rounded-xl text-xs font-bold flex items-center justify-center" title="ముఖ్య సూత్రాలు">
-                        <span class="material-symbols-outlined text-base">format_list_bulleted</span>
-                    </a>
+              </div>
+              <div class="col-8">
+                <span class="badge bg-warning bg-opacity-20 text-warning-emphasis rounded-pill small mb-1"><?php echo htmlspecialchars($book['category']); ?></span>
+                <h5 class="fw-bold text-stone-900 mb-1 fs-6"><?php echo htmlspecialchars($book['title']); ?></h5>
+                <p class="text-stone-500 small mb-2">రచయిత: <?php echo htmlspecialchars($book['author']); ?></p>
+                <div class="text-warning small">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <span class="text-muted ms-1 small">(<?php echo $book['rating']; ?>)</span>
                 </div>
+              </div>
             </div>
-        <?php endforeach; ?>
-    </div>
-</main>
 
-<?php require_once __DIR__ . '/footer.php'; ?>
+            <p class="text-stone-600 small flex-grow-1 mb-3" style="line-height: 1.5;">
+              <?php echo htmlspecialchars($book['description']); ?>
+            </p>
+
+            <div class="d-flex align-items-center justify-content-between pt-3 border-top border-stone-100">
+              <button type="button" class="btn btn-sm btn-outline-warning rounded-pill open-book-modal-btn" data-id="<?php echo $book['id']; ?>">
+                <i class="bi bi-journal-text"></i> క్విక్ సారాంశం
+              </button>
+              <a href="/book-detail.php?slug=<?php echo $book['slug']; ?>" class="btn btn-sm btn-gold">
+                పూర్తి సారాంశం <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<?php include __DIR__ . '/footer.php'; ?>

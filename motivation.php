@@ -1,107 +1,69 @@
 <?php
-// motivation.php - KK LifeWise Motivation Hub
-$page_title = 'Motivation (ప్రేరణ) - KK LifeWise | ఆలోచన మార్చు • జీవితం మార్చు';
-$page_description = 'Telugu Motivation articles, mindset shifts, daily affirmations, overcoming failure and goal setting wisdom.';
-$active_page = 'motivation';
+// motivation.php - Motivation Category Page
+require_once __DIR__ . '/functions.php';
 
-require_once __DIR__ . '/header.php';
-$motivation_articles = get_articles('motivation');
+$custom_page_title = 'మోటివేషన్ & వ్యక్తిగత వికాసం | KK LifeWise';
+$custom_page_desc = 'ఆలోచన మార్చు • జీవితం మార్చు - తెలుగు మోటివేషన్ వ్యాసాలు, ఆత్మవిశ్వాసం మరియు మానసిక బలాన్ని పెంచే గైడ్స్.';
+
+$motivation_articles = array_filter($articles, function($a) {
+    return $a['category'] === 'motivation';
+});
+
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-12">
-    <!-- Header Banner -->
-    <div class="relative py-12 px-6 sm:px-10 rounded-3xl overflow-hidden glass-panel border border-amber-500/20 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase mb-3">
-            <span class="material-symbols-outlined text-sm">bolt</span>
-            Mindset & Willpower
-        </div>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-primary font-sans mb-3">
-            Motivation (ప్రేరణ)
-        </h1>
-        <p class="text-base sm:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            మీ ఆలోచనా సరళిని మార్చేందుకు, అంతర్గత శక్తిని మేల్కొలిపేందుకు మరియు లక్ష్యాల వైపు నిరంతరం నడిపించే స్ఫూర్తిదాయక పాఠాలు.
-        </p>
+<div class="bg-hero-pattern py-5 border-bottom border-stone-200">
+  <div class="container py-lg-3">
+    <div class="max-w-3xl">
+      <div class="badge badge-pill badge-gold mb-2">
+        <i class="bi bi-lightning-charge-fill text-warning"></i> మోటివేషన్ & ఆలోచనా విధానం
+      </div>
+      <h1 class="hero-heading font-serif-telugu fw-bold text-stone-900 mb-3" style="font-size: 2.8rem;">
+        మోటివేషన్ (Motivation)
+      </h1>
+      <p class="text-stone-600 fs-5 mb-0" style="line-height: 1.6;">
+        భయం, అపనమ్మకం, ఒత్తిడిని అధిగమించి జీవితంలో విజేతగా నిలవడానికి అవసరమైన అత్యుత్తమ మైండ్‌సెట్ గైడ్స్ మరియు స్ఫూర్తిదాయక విశ్లేషణలు.
+      </p>
     </div>
+  </div>
+</div>
 
-    <!-- Motivational Affirmation of the Day -->
-    <div class="bg-surface-container rounded-2xl p-6 sm:p-8 border border-white/10 shadow-lg gold-glow flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-2">
-            <span class="text-xs font-bold text-primary tracking-widest uppercase font-sans">నేటి ప్రేరణ వాక్యం</span>
-            <p class="text-lg sm:text-xl font-medium text-on-surface">
-                "ఓటమి నిన్ను ఆపలేదు; నీలోని సందేహం మాత్రమే నిన్ను ఆపగలదు. ధైర్యంగా ముందుకు సాగు!"
-            </p>
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-4">
+      <?php foreach ($motivation_articles as $art): ?>
+        <div class="col-lg-4 col-md-6">
+          <div class="lw-card">
+            <div class="card-img-wrap">
+              <img src="<?php echo htmlspecialchars($art['image']); ?>" alt="<?php echo htmlspecialchars($art['title']); ?>">
+              <span class="position-absolute top-0 start-0 m-3 badge bg-stone-900 bg-opacity-90 text-warning px-2.5 py-1 rounded-pill small">
+                <?php echo htmlspecialchars($art['category_name']); ?>
+              </span>
+            </div>
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <div class="d-flex align-items-center gap-2 text-stone-400 small mb-2">
+                <i class="bi bi-clock"></i> <span><?php echo htmlspecialchars($art['read_time']); ?></span>
+              </div>
+              <h4 class="fs-5 fw-bold text-stone-900 mb-2">
+                <a href="/article.php?slug=<?php echo $art['slug']; ?>" class="text-decoration-none text-stone-900 hover-warning">
+                  <?php echo htmlspecialchars($art['title']); ?>
+                </a>
+              </h4>
+              <p class="text-stone-600 small flex-grow-1 mb-4"><?php echo htmlspecialchars($art['excerpt']); ?></p>
+              <div class="d-flex align-items-center justify-content-between pt-3 border-top border-stone-100 mt-auto">
+                <button type="button" class="btn btn-sm btn-outline-warning rounded-pill open-article-modal-btn" data-id="<?php echo $art['id']; ?>">
+                  <i class="bi bi-eye"></i> క్విక్ వ్యూ
+                </button>
+                <a href="/article.php?slug=<?php echo $art['slug']; ?>" class="btn btn-sm btn-gold">
+                  చదవండి <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <button type="button" class="btn-gold px-6 py-3 rounded-xl font-bold text-xs sm:text-sm shrink-0 flex items-center gap-2 share-quote-btn">
-            <span class="material-symbols-outlined text-base">share</span>
-            షేర్ చేయండి
-        </button>
+      <?php endforeach; ?>
     </div>
+  </div>
+</section>
 
-    <!-- Motivation Articles Grid -->
-    <section>
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl sm:text-2xl font-bold text-on-surface font-sans">ప్రేరణాత్మక వ్యాసాలు (Articles)</h2>
-            <span class="text-xs text-on-surface-variant"><?= count($motivation_articles) ?> వ్యాసాలు లభ్యంలో ఉన్నాయి</span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php foreach ($motivation_articles as $art): ?>
-                <article class="bg-surface-container rounded-2xl overflow-hidden border border-white/10 shadow-lg gold-glow flex flex-col justify-between">
-                    <div>
-                        <div class="relative h-48 overflow-hidden">
-                            <img src="<?= htmlspecialchars($art['image']) ?>" alt="<?= htmlspecialchars($art['title']) ?>" class="w-full h-full object-cover" loading="lazy">
-                            <div class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded text-[11px] text-white">
-                                <?= htmlspecialchars($art['read_time']) ?>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-on-surface mb-2 line-clamp-2">
-                                <a href="<?= base_url('article.php?slug=' . $art['slug']) ?>" class="text-on-surface hover:text-primary text-decoration-none">
-                                    <?= htmlspecialchars($art['title']) ?>
-                                </a>
-                            </h3>
-                            <p class="text-sm text-on-surface-variant line-clamp-3 mb-4 leading-relaxed">
-                                <?= htmlspecialchars($art['excerpt']) ?>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="px-6 pb-6 pt-2 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-xs text-on-surface-variant"><?= htmlspecialchars($art['date']) ?></span>
-                        <a href="<?= base_url('article.php?slug=' . $art['slug']) ?>" class="btn-outline-gold px-4 py-1.5 rounded-lg text-xs font-bold">
-                            పూర్తిగా చదవండి
-                        </a>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
-    <!-- Key Motivation Principles in Telugu -->
-    <section class="bg-surface-container-high/60 rounded-3xl p-6 sm:p-10 border border-white/10">
-        <h2 class="text-xl sm:text-2xl font-bold text-primary font-sans mb-6">నిత్యం గుర్తుంచుకోవాల్సిన 4 సూత్రాలు</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="p-5 rounded-2xl bg-surface-container border border-white/5">
-                <div class="text-2xl font-bold text-amber-400 mb-2 font-sans">01</div>
-                <h3 class="text-base font-bold text-on-surface mb-1">చిన్న అడుగుల శక్తి</h3>
-                <p class="text-xs text-on-surface-variant leading-relaxed">పెద్ద మార్పు ఒక్కరోజులో రాదు; ప్రతిరోజూ చేసే చిన్న పని పెద్ద ఫలితాన్ని ఇస్తుంది.</p>
-            </div>
-            <div class="p-5 rounded-2xl bg-surface-container border border-white/5">
-                <div class="text-2xl font-bold text-amber-400 mb-2 font-sans">02</div>
-                <h3 class="text-base font-bold text-on-surface mb-1">ఓటమి భయం వీడండి</h3>
-                <p class="text-xs text-on-surface-variant leading-relaxed">ఓటమి అనేది ముగింపు కాదు; అది ఒక మంచి అనుభవం మాత్రమే.</p>
-            </div>
-            <div class="p-5 rounded-2xl bg-surface-container border border-white/5">
-                <div class="text-2xl font-bold text-amber-400 mb-2 font-sans">03</div>
-                <h3 class="text-base font-bold text-on-surface mb-1">క్రమశిక్షణే నిజమైన స్నేహితుడు</h3>
-                <p class="text-xs text-on-surface-variant leading-relaxed">మూడ్ బాగోలేకపోయినా అనుకున్న పనిని పూర్తి చేయడమే క్రమశిక్షణ.</p>
-            </div>
-            <div class="p-5 rounded-2xl bg-surface-container border border-white/5">
-                <div class="text-2xl font-bold text-amber-400 mb-2 font-sans">04</div>
-                <h3 class="text-base font-bold text-on-surface mb-1">సానుకూల సహవాసం</h3>
-                <p class="text-xs text-on-surface-variant leading-relaxed">ఎల్లప్పుడూ మిమ్మల్ని ప్రోత్సహించే వ్యక్తులతో సమయం గడపండి.</p>
-            </div>
-        </div>
-    </section>
-</main>
-
-<?php require_once __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

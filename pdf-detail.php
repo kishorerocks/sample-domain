@@ -1,115 +1,85 @@
 <?php
-// pdf-detail.php - Free PDF Preview & Download Page for KK LifeWise
+// pdf-detail.php - Free Downloadable PDF Resource
 require_once __DIR__ . '/functions.php';
 
-$slug = $_GET['slug'] ?? '';
-$pdf = get_pdf_by_slug($slug);
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+$pdf = get_pdf_by_id($id);
 
 if (!$pdf) {
-    $pdf = $pdfs[0];
+    $pdf = $pdfs[0] ?? [
+        'id' => 1,
+        'title' => 'శ్రీకృష్ణుని 6 విజయ రహస్యాలు - స్టడీ గైడ్ & యాక్షన్ ప్లానర్',
+        'category' => 'గైడ్ & వర్క్‌బుక్',
+        'pages' => '12 Pages',
+        'file_size' => '2.4 MB',
+        'description' => 'భగవద్గీతలోని 6 ప్రధాన సూత్రాలను మీ దైనందిన జీవితంలో ఆచరించడానికి అవసరమైన ప్రాక్టికల్ డైలీ చెక్‌లిస్ట్ మరియు జర్నలింగ్ వర్క్‌షీట్.',
+        'cover' => 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80',
+        'download_url' => '#'
+    ];
 }
 
-$page_title = $pdf['title'] . ' (Free Download) - KK LifeWise';
-$page_description = $pdf['description'];
-$active_page = 'pdfs';
+$custom_page_title = $pdf['title'] . ' | KK LifeWise Free PDFs';
+$custom_page_desc = $pdf['description'];
 
-require_once __DIR__ . '/header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-on-surface-variant font-sans">
-        <a href="<?= base_url('index.php') ?>" class="hover:text-primary">Home</a>
-        <span>/</span>
-        <a href="<?= base_url('pdfs.php') ?>" class="hover:text-primary">Free PDFs</a>
-        <span>/</span>
-        <span class="text-primary truncate"><?= htmlspecialchars($pdf['title']) ?></span>
+<div class="bg-stone-100 py-4 border-bottom border-stone-200">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 small">
+        <li class="breadcrumb-item"><a href="/index.php" class="text-decoration-none text-stone-600">హోమ్</a></li>
+        <li class="breadcrumb-item"><a href="/pdfs.php" class="text-decoration-none text-stone-600">Free PDFs</a></li>
+        <li class="breadcrumb-item active text-stone-900 text-truncate" style="max-width: 300px;" aria-current="page"><?php echo htmlspecialchars($pdf['title']); ?></li>
+      </ol>
     </nav>
+  </div>
+</div>
 
-    <article class="bg-surface-container rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl space-y-8">
-        <div class="flex flex-col md:flex-row gap-8 items-start pb-8 border-b border-white/10">
-            <img src="<?= htmlspecialchars($pdf['thumbnail']) ?>" alt="<?= htmlspecialchars($pdf['title']) ?>" class="w-full md:w-56 h-72 object-cover rounded-2xl shadow-xl border border-white/10 shrink-0">
-            
-            <div class="space-y-4">
-                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold uppercase font-sans">
-                    <?= htmlspecialchars($pdf['category_name']) ?>
-                </span>
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row g-5 align-items-center justify-content-center">
+      <div class="col-md-4 text-center">
+        <div class="p-3 bg-stone-50 rounded-4 border shadow-lg mx-auto" style="max-width: 300px;">
+          <img src="<?php echo htmlspecialchars($pdf['cover']); ?>" class="img-fluid rounded-3 mb-3" alt="<?php echo htmlspecialchars($pdf['title']); ?>">
+          <div class="badge bg-danger px-3 py-1 rounded-pill small mb-2">
+            <i class="bi bi-file-earmark-pdf-fill"></i> PDF డాక్యుమెంట్
+          </div>
+          <div class="text-stone-500 small">
+            <span><?php echo $pdf['pages']; ?></span> • <span><?php echo $pdf['file_size']; ?></span>
+          </div>
+        </div>
+      </div>
 
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-on-surface font-sans leading-tight">
-                    <?= htmlspecialchars($pdf['title']) ?>
-                </h1>
+      <div class="col-md-7">
+        <span class="badge bg-warning text-dark px-3 py-1.5 rounded-pill fw-bold mb-2">ఉచిత డౌన్‌లోడ్</span>
+        <h1 class="font-serif-telugu fw-bold text-stone-900 mb-3" style="font-size: 2.3rem;">
+          <?php echo htmlspecialchars($pdf['title']); ?>
+        </h1>
+        <p class="fs-5 text-stone-700 mb-4" style="line-height: 1.6;">
+          <?php echo htmlspecialchars($pdf['description']); ?>
+        </p>
 
-                <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed">
-                    <?= htmlspecialchars($pdf['description']) ?>
-                </p>
-
-                <div class="flex flex-wrap items-center gap-3 pt-2 text-xs text-on-surface-variant font-sans">
-                    <span class="p-2 rounded-lg bg-surface-container-high border border-white/5">సైజు: <?= htmlspecialchars($pdf['file_size']) ?></span>
-                    <span class="p-2 rounded-lg bg-surface-container-high border border-white/5">పేజీలు: <?= htmlspecialchars($pdf['pages_count']) ?></span>
-                    <span class="p-2 rounded-lg bg-purple-950/40 text-purple-300 border border-purple-500/20"><?= htmlspecialchars($pdf['downloads']) ?></span>
-                </div>
-            </div>
+        <div class="p-4 rounded-4 bg-stone-50 border mb-4">
+          <h6 class="fw-bold text-stone-900 mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>ఈ గైడ్‌లో ఏమి లభిస్తుంది?</h6>
+          <ul class="list-unstyled mb-0 text-stone-700 small d-flex flex-column gap-2">
+            <li><i class="bi bi-arrow-right-short text-warning"></i> దశలవారీగా అమలు చేయగల రోజువారీ చెక్‌లిస్ట్</li>
+            <li><i class="bi bi-arrow-right-short text-warning"></i> ఆచరణాత్మక జర్నలింగ్ ప్రశ్నలు</li>
+            <li><i class="bi bi-arrow-right-short text-warning"></i> హై-రిజల్యూషన్ ప్రింట్ చేయదగిన లేఅవుట్</li>
+          </ul>
         </div>
 
-        <!-- Highlights & Download Section -->
-        <div class="space-y-6">
-            <h2 class="text-xl sm:text-2xl font-bold text-primary pb-2 border-b border-white/10">
-                ఈ PDF లో ఏముంది? (Features & Contents)
-            </h2>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <?php foreach ($pdf['features'] as $feat): ?>
-                    <div class="p-4 rounded-xl bg-surface-container-high/70 border border-white/5 flex items-center gap-3">
-                        <span class="material-symbols-outlined text-purple-400 text-xl">verified</span>
-                        <span class="text-sm text-on-surface font-medium"><?= htmlspecialchars($feat) ?></span>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-
-            <!-- Instant Download Box -->
-            <div class="p-8 rounded-2xl bg-gradient-to-br from-purple-950/40 via-surface-container to-surface-container-lowest border border-purple-500/30 text-center space-y-4 shadow-xl">
-                <span class="material-symbols-outlined text-4xl text-purple-400">cloud_download</span>
-                <h3 class="text-lg sm:text-xl font-bold text-on-surface">ఉచితంగా ఇప్పుడే డౌన్‌లోడ్ చేసుకోండి</h3>
-                <p class="text-xs sm:text-sm text-on-surface-variant max-w-md mx-auto">
-                    ఎలాంటి రిజిస్ట్రేషన్ అవసరం లేదు. వెంటనే మీ మొబైల్ లేదా కంప్యూటర్‌లో సేవ్ చేసుకోండి.
-                </p>
-
-                <div class="pt-2">
-                    <button type="button" id="start-download-btn" class="btn-gold px-8 py-3.5 rounded-xl font-bold text-sm inline-flex items-center gap-2 shadow-lg">
-                        <span class="material-symbols-outlined">download</span>
-                        డౌన్‌లోడ్ చేయండి (Free PDF Download)
-                    </button>
-                </div>
-            </div>
+        <div class="d-flex flex-wrap gap-3">
+          <button type="button" class="btn btn-gold btn-lg" onclick="showToast('PDF డౌన్‌లోడ్ ప్రారంభమైంది!');">
+            <i class="bi bi-download"></i> ఉచితంగా డౌన్‌లోడ్ చేసుకోండి (PDF)
+          </button>
+          <a href="/pdfs.php" class="btn btn-outline-dark btn-lg">
+            అన్ని PDFs
+          </a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Footer Actions -->
-        <div class="pt-6 border-t border-white/10 flex items-center justify-between">
-            <a href="<?= base_url('pdfs.php') ?>" class="btn-outline-gold px-5 py-2 rounded-xl text-xs font-bold">
-                ← అన్ని ఉచిత PDFs
-            </a>
-            <button type="button" class="btn-gold px-5 py-2 rounded-xl text-xs font-bold share-quote-btn">
-                షేర్ చేయండి
-            </button>
-        </div>
-    </article>
-</main>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const dlBtn = document.getElementById('start-download-btn');
-    if (dlBtn) {
-        dlBtn.addEventListener('click', function() {
-            dlBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> డౌన్‌లోడ్ అవుతోంది...';
-            setTimeout(() => {
-                dlBtn.innerHTML = '<span class="material-symbols-outlined">check</span> డౌన్‌లోడ్ విజయవంతమైంది!';
-                if (typeof showToast === 'function') {
-                    showToast('PDF విజయవంతంగా డౌన్‌లోడ్ అయ్యింది!');
-                }
-            }, 1200);
-        });
-    }
-});
-</script>
-
-<?php require_once __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

@@ -1,102 +1,94 @@
 <?php
-// video-detail.php - Dedicated Video Watch & Insights Page for KK LifeWise
+// video-detail.php - Single Video Player & Details
 require_once __DIR__ . '/functions.php';
 
-$slug = $_GET['slug'] ?? '';
-$video = get_video_by_slug($slug);
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+$video = get_video_by_id($id);
 
 if (!$video) {
     $video = $videos[0];
 }
 
-$page_title = $video['title'] . ' - KK LifeWise';
-$page_description = $video['summary'];
-$active_page = 'videos';
+$custom_page_title = $video['title'] . ' | KK LifeWise Videos';
+$custom_page_desc = $video['description'] ?? 'KK Motivation Telugu ప్రత్యేక వీడియో.';
 
-require_once __DIR__ . '/header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-on-surface-variant font-sans">
-        <a href="<?= base_url('index.php') ?>" class="hover:text-primary">Home</a>
-        <span>/</span>
-        <a href="<?= base_url('videos.php') ?>" class="hover:text-primary">Videos</a>
-        <span>/</span>
-        <span class="text-primary truncate"><?= htmlspecialchars($video['title']) ?></span>
+<div class="bg-dark text-white py-4 border-bottom border-stone-800">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 small">
+        <li class="breadcrumb-item"><a href="/index.php" class="text-decoration-none text-stone-400">హోమ్</a></li>
+        <li class="breadcrumb-item"><a href="/videos.php" class="text-decoration-none text-stone-400">వీడియోలు</a></li>
+        <li class="breadcrumb-item active text-warning text-truncate" style="max-width: 300px;" aria-current="page"><?php echo htmlspecialchars($video['title']); ?></li>
+      </ol>
     </nav>
+  </div>
+</div>
 
-    <article class="bg-surface-container rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl space-y-8">
-        <!-- Video Header -->
-        <div class="space-y-3">
-            <span class="px-3 py-1 rounded-full bg-red-500/20 text-red-300 text-xs font-semibold uppercase font-sans">
-                <?= htmlspecialchars($video['category_name']) ?>
-            </span>
-            <h1 class="text-2xl sm:text-4xl font-extrabold text-on-surface font-sans leading-tight">
-                <?= htmlspecialchars($video['title']) ?>
-            </h1>
-            <div class="flex items-center gap-4 text-xs text-on-surface-variant font-sans">
-                <span>ఛానెల్: <strong class="text-on-surface"><?= htmlspecialchars($video['channel']) ?></strong></span>
-                <span>•</span>
-                <span>వ్యవధి: <?= htmlspecialchars($video['duration']) ?></span>
-                <span>•</span>
-                <span><?= htmlspecialchars($video['views']) ?></span>
+<section class="py-5 bg-dark-mesh text-white">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        
+        <!-- Video Player -->
+        <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg border border-stone-800 mb-4">
+          <iframe src="https://www.youtube.com/embed/<?php echo $video['youtube_id']; ?>?autoplay=1" title="<?php echo htmlspecialchars($video['title']); ?>" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Video Info -->
+        <div class="p-4 rounded-4 bg-stone-900 border border-stone-800 mb-5">
+          <span class="badge bg-danger px-3 py-1 rounded-pill small mb-2"><?php echo htmlspecialchars($video['category'] ?? 'Motivation'); ?></span>
+          <h1 class="fw-bold text-white mb-3 fs-3 font-telugu"><?php echo htmlspecialchars($video['title']); ?></h1>
+          
+          <div class="d-flex flex-wrap align-items-center justify-content-between text-stone-400 small pb-3 border-bottom border-stone-800 gap-2 mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <span><i class="bi bi-clock"></i> <?php echo htmlspecialchars($video['duration']); ?></span>
+              <span><i class="bi bi-eye"></i> <?php echo htmlspecialchars($video['views']); ?> వీక్షణలు</span>
             </div>
-        </div>
-
-        <!-- Video Embed -->
-        <div class="aspect-video w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black">
-            <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/<?= htmlspecialchars($video['youtube_id']) ?>?rel=0&autoplay=1" title="<?= htmlspecialchars($video['title']) ?>" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-
-        <!-- Video Summary & Insights -->
-        <div class="space-y-6">
-            <h2 class="text-xl sm:text-2xl font-bold text-primary pb-2 border-b border-white/10">
-                వీడియో సారాంశం (Summary & Insights)
-            </h2>
-            <p class="text-base text-on-surface leading-relaxed">
-                <?= htmlspecialchars($video['summary']) ?>
-            </p>
-
-            <h3 class="text-lg font-bold text-on-surface pt-2">ముఖ్యమైన విషయాలు (Key Lessons):</h3>
-            <div class="space-y-3">
-                <?php foreach ($video['key_takeaways'] as $index => $point): ?>
-                    <div class="p-4 rounded-xl bg-surface-container-high/70 border border-white/5 flex items-start gap-3">
-                        <span class="material-symbols-outlined text-red-400 text-xl shrink-0 mt-0.5">check_circle</span>
-                        <p class="text-sm sm:text-base text-on-surface leading-relaxed">
-                            <?= htmlspecialchars($point) ?>
-                        </p>
-                    </div>
-                <?php endforeach; ?>
+            <div class="d-flex gap-2">
+              <a href="https://www.youtube.com/watch?v=<?php echo $video['youtube_id']; ?>" target="_blank" rel="noopener" class="btn btn-sm btn-danger rounded-pill">
+                <i class="bi bi-youtube"></i> YouTube లో తెరవండి
+              </a>
+              <button type="button" class="btn btn-sm btn-success rounded-pill" onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent('<?php echo addslashes($video['title']); ?> - ' + window.location.href), '_blank')">
+                <i class="bi bi-whatsapp"></i> షేర్
+              </button>
             </div>
+          </div>
+
+          <p class="text-stone-300 mb-0 font-telugu" style="line-height: 1.7;">
+            <?php echo htmlspecialchars($video['description'] ?? 'KK Motivation Telugu రూపొందించిన ఈ వీడియో ద్వారా మీ ఆలోచనలను సానుకూలంగా మార్చుకోండి.'); ?>
+          </p>
         </div>
 
-        <!-- Official YouTube CTA -->
-        <div class="p-6 rounded-2xl bg-gradient-to-r from-red-950/40 to-surface-container border border-red-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-3xl">smart_display</span>
+        <!-- Other Recommended Videos -->
+        <h4 class="fw-bold text-white mb-4">మరిన్ని స్ఫూర్తిదాయక వీడియోలు</h4>
+        <div class="row g-4">
+          <?php foreach ($videos as $v): if ($v['id'] == $video['id']) continue; ?>
+            <div class="col-md-4">
+              <div class="lw-card-dark p-3 h-100">
+                <div class="video-thumbnail-container mb-3">
+                  <img src="<?php echo htmlspecialchars($v['thumbnail']); ?>" alt="<?php echo htmlspecialchars($v['title']); ?>">
+                  <a href="/video-detail.php?id=<?php echo $v['id']; ?>" class="play-overlay-btn text-decoration-none">
+                    <i class="bi bi-play-fill"></i>
+                  </a>
+                  <span class="video-duration-badge"><?php echo htmlspecialchars($v['duration']); ?></span>
                 </div>
-                <div>
-                    <h4 class="text-base font-bold text-on-surface font-sans">KK Motivation Telugu</h4>
-                    <p class="text-xs text-on-surface-variant">యూట్యూబ్‌లో మరిన్ని వీడియోల కోసం సబ్‌స్క్రైబ్ చేయండి</p>
-                </div>
+                <h6 class="fw-bold text-white mb-2">
+                  <a href="/video-detail.php?id=<?php echo $v['id']; ?>" class="text-decoration-none text-white hover-warning">
+                    <?php echo htmlspecialchars($v['title']); ?>
+                  </a>
+                </h6>
+                <small class="text-stone-400"><i class="bi bi-eye"></i> <?php echo htmlspecialchars($v['views']); ?></small>
+              </div>
             </div>
-            <a href="https://www.youtube.com/@KKMotivationTelugu?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn-gold px-6 py-2.5 rounded-xl text-xs font-bold shrink-0">
-                Subscribe on YouTube
-            </a>
+          <?php endforeach; ?>
         </div>
 
-        <!-- Footer Navigation -->
-        <div class="pt-6 border-t border-white/10 flex items-center justify-between">
-            <a href="<?= base_url('videos.php') ?>" class="btn-outline-gold px-5 py-2 rounded-xl text-xs font-bold">
-                ← అన్ని వీడియోలు
-            </a>
-            <button type="button" class="btn-gold px-5 py-2 rounded-xl text-xs font-bold share-quote-btn">
-                షేర్ చేయండి
-            </button>
-        </div>
-    </article>
-</main>
+      </div>
+    </div>
+  </div>
+</section>
 
-<?php require_once __DIR__ . '/footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>
